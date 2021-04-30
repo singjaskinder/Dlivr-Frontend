@@ -1,0 +1,130 @@
+.userDetail-screen{
+    height:100vh;
+    /* padding-top:100px; */
+    margin-left:400px;
+    
+}
+.user-detail{
+    background-color: #fff;
+    display:flex;
+    flex-direction:row;
+    flex-wrap: wrap;
+    /* margin-bottom:100px; */
+    
+    
+}
+.user-image{
+    padding-top:40px;
+}
+.user-det-head{
+    color:#fff;
+    font-size:2.6rem;
+}
+
+.des-h5{
+   
+    color:rgb(90, 79, 189);
+    
+    margin-left:20px;
+    padding:30px 0 30px 0;
+   
+    font-size: thin;
+    
+
+}
+h2{
+    color:rgb(90, 79, 189);
+    font-weight: bold;
+    font-size:1.7rem;  
+}
+
+.give-margin{
+    margin-bottom:0px;
+}
+.main-container{
+   
+    display:flex;
+    flex-direction:column;
+    flex-wrap: wrap;
+    border-radius:20px;
+    background-color: #fff;
+    width:850px;
+    height:350px;
+   
+    box-shadow:  6px 6px 6px grey;
+    padding-bottom:10px;
+}
+.container-a{
+    /* background-color:rgb(104, 55, 55); */
+    padding:10px;
+    border-radius:25px;
+
+}
+
+
+
+.user-detail-a{
+    
+    /* background-color:green; */
+    padding:10px;
+    padding-left:50px;
+}
+.user-detail-b{
+    /* background-color:yellow; */
+    padding:10px;
+    padding-left:50px;
+}
+.circle-img-newuser {
+    border-radius: 50%;
+    border: 7px solid #fff;
+    width: 150px;
+    height: 150px;
+    padding:10px;
+    padding-top:10px;
+  
+  }
+.details-chunk{
+   padding:10px;
+   color:rgb(90, 79, 189);   
+}
+.usr-btn{
+    border-radius:8px;
+    background-color: rgb(255, 255, 255);
+    border-color:rgb(90, 79, 189);
+    width:250px;
+    height:40px;
+    margin-left:20px;
+    font-size: 18px;
+    font-weight:bold;
+    color:rgb(90, 79, 189);
+    border-width: 1.9px;
+
+}
+.btn:hover{
+    /* background-color:rgb(90, 79, 189); */
+    /* color: #fff; */
+    /* border:none; */
+    box-shadow:  5px 5px 5px grey;
+    
+}
+button::selection{
+    outline:none;
+}
+button:focus {
+    outline: 0 !important;
+    background-color:rgb(90, 79, 189);
+    color: #fff;
+    box-shadow:  4px 4px 4px grey;
+}
+.icon-rating{
+    color:rgb(238, 193, 46);
+    font-weight:300;
+}
+.nav-btn-con{
+    margin-top:20px;
+    
+}
+.nav-btn{
+    border:none;
+    box-shadow:  5px 5px 5px grey;
+}

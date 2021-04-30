@@ -1,0 +1,47 @@
+.admin-acc{
+    /* background-color:black; */
+    /* position: relative; */
+}
+.admin-head-con{
+    display:flex;
+    flex-direction:row;
+}
+.admin-head{
+    font-size:2.4rem;
+    padding:10px;
+    margin:20px 0 0 230px;
+    color:#fff;
+}
+.admin-card-con{
+    /* background-color: rgb(149, 184, 56); */
+    margin:0px 0px 0 200px;
+    widows: 20px;
+    /* position: inherit; */
+    /* margin-left:100px; */
+}
+.ad-card{
+    display:flex;
+    flex-direction:row;
+    /* position: relative; */
+    flex-wrap:wrap;
+}
+.add-admin-btn{
+    color:#fff;
+  background-color: rgb(87, 69, 202); 
+  border:none;
+  
+  /* text-align: center;
+  text-decoration: none; */
+  
+  font-size: 16px;
+  border-radius:8px;
+  width:100px;
+  height:40px;
+  margin-top:30px;
+  margin-left:608px;
+
+  /* margin-bottom:0px;
+  
+  margin-left:1000px; */
+  /* margin-right:10px; */
+}
