@@ -7,13 +7,14 @@ import UserDetails from "./screens/UserDetails";
 import AdminDetails from "./screens/AdminDetails";
 import DriverDetails from "./screens/DriverDetails";
 import Dashboard from "./screens/Dashboard";
-const hist = createBrowserHistory();
+// const hist = createBrowserHistory();
 
 function App() {
   return (
     <div className="App">
       <h1>React Application</h1>
-      <Router history={hist}>
+      {/* <Router history={hist}> */}
+      <Router>
       <div className="main_div">
     <Switch>
       <Route path="/login" component={Login}/>
