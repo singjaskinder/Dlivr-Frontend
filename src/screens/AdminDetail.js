@@ -1,9 +1,9 @@
 import React from 'react';
-import "./AdminAccount.css";
+import "./AdminDetails.css";
 import AdminCard from '../components/AdminCard';
 import {useHistory} from 'react-router-dom';
 
-function AdminAccount() {
+function AdminDetails() {
     const history = useHistory();
     function addAdmin(){
        
@@ -65,4 +65,4 @@ function AdminAccount() {
     )
 }
 
-export default AdminAccount
+export default AdminDetails
