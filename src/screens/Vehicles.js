@@ -6,35 +6,35 @@ import axios from "axios";
 function Vehicles() {
     const [vehicleCount, setVehicleCount] = useState(0);
     const [vehicles, setVehicles] = useState([]);
+
+    async function getVehicles() {
+        await axios({
+            method: 'POST',
+            url: '/admin/getVehicles',
+            data: {
+                recordsPerPage: 25
+            }
+        })
+            .then(res => {
+                setVehicles(res.data.data[0].foundVehicles)
+            })
+            .catch(err => console.log(err))
+
+    }
+
+    async function getData() {
+        await axios({
+            method: 'get',
+            url: '/vehicle/allVehicleCount'
+        })
+            .then(res => {
+                setVehicleCount(res.data.data.vehicleCount)
+            })
+            .catch(err => console.log(err))
+
+    }
     useEffect(() => {
-        async function getData() {
-            await axios({
-                method: 'get',
-                url: '/vehicle/allVehicleCount'
-            })
-                .then(res => {
-                    setVehicleCount(res.data.data.vehicleCount)
-                })
-                .catch(err => console.log(err))
-
-        }
-
         getData();
-
-        async function getVehicles() {
-            await axios({
-                method: 'POST',
-                url: '/admin/getVehicles',
-                data: {
-                    recordsPerPage: 25
-                }
-            })
-                .then(res => {
-                    setVehicles(res.data.data[0].foundVehicles)
-                })
-                .catch(err => console.log(err))
-
-        }
         getVehicles();
     }, []);
     return (
@@ -69,6 +69,7 @@ function Vehicles() {
                     <li>Capacity</li>
                     <li>Driver</li>
                 </div>
+                {console.log(vehicles)}
                 {vehicles.map((item, index) => {
                     return (
                         <NavLink to={`/vehicles/${item._id}`} key={index} className="row_data">

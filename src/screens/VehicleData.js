@@ -6,6 +6,7 @@ import "./VehicleData.css"
 import axios from "axios";
 import ScreenHeading from "../components/ScreenHeading";
 function VehicleData() {
+    const [vehicles, setVehicles] = useState([]);
     const [vehicleType, setVehicleType] = useState("...");
     const [vehicleDriver, setVehicleDriver] = useState("...");
     const [vehicleNo, setVehicleNo] = useState("...");
@@ -17,7 +18,22 @@ function VehicleData() {
     const [vehicleIscC, setVehicleIscC] = useState("/dashboard");
     const { id } = useParams();
     useEffect(() => {
+        async function temp(){
+            await axios({
+                method: 'POST',
+                url: '/admin/getVehicles',
+                data: {
+                    recordsPerPage: 25
+                }
+            })
+                .then(res => {
+                    setVehicles(res.data.data[0].foundVehicles)
+                })
+                .catch(err => console.log(err))
+
+        }
         
+        temp();
         async function getData() {
             await axios({
                 method: 'get',
@@ -25,7 +41,7 @@ function VehicleData() {
             })
                 .then(res => {
                     var vehicle = res.data.data[0];
-                    console.log(vehicle)
+                    // console.log(vehicle)
                     setVehicleType(vehicle.type)
                     setVehicleDriver(vehicle.owner_id.name)
                     setVehicleNo(vehicle.number)
@@ -41,7 +57,7 @@ function VehicleData() {
         }
 
         getData();
-    }, [id])
+    }, [id, true])
     return (
         
         <>
@@ -98,6 +114,7 @@ function VehicleData() {
                     </a>
                 </div>
             </div>
+            {console.log(vehicles)}
         </>
     );
 }
