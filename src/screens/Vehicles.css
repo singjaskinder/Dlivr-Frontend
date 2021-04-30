@@ -1,0 +1,109 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+.vehicleCount{
+    background-color: #fff;
+    color: #6f2da8;
+    padding: 20px;
+    display: inline-flex;
+    align-items: center;
+    border-radius: 13px;
+    box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.3);
+}
+.data_heading{
+    font-family: 'Poppins', sans-serif;
+    font-weight: 900;
+    font-size: 1.5em;
+    
+}
+.data_count{
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    font-size: 1.3em;
+
+}
+
+.icon{
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    font-size: 4em;
+    padding: 10px;
+    margin-left: 30px;
+}
+
+.filters{
+    display: flex;
+    padding: 10px 0px;
+}
+
+.filter{
+    display: flex;
+    margin: 5px;
+    background-color: #6f2da8;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 7px;
+    font-family: 'Poppins', sans-serif;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.3);
+}
+.filter > i{
+    margin-left: 15px;
+}
+
+.reset{
+    display: flex;
+    margin: 5px;
+    color: #6f2da8;
+    border: 1px solid #6f2da8;
+    padding: 10px 20px;
+    border-radius: 7px;
+    font-family: 'Poppins', sans-serif;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.2);
+    font-weight: 900;
+}
+
+.row_heading{
+    list-style: none;
+    display: flex;
+    background-color: #fff;
+    padding: 10px;
+    color: #6f2da8;
+    border-radius: 10px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 900;
+    margin-bottom: 6px;
+    box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.2);
+}
+
+.row_heading > li{
+    width: 25%;
+    text-align: center;
+}
+
+.row_data{
+    list-style: none;
+    display: flex;
+    background-color: #6f2da8;
+    margin: 7px 0px;
+    padding: 10px;
+    color: #fff;
+    border-radius: 10px;
+    font-family: 'Poppins', sans-serif;
+    box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.row_data > li{
+    width: 25%;
+    text-align: center;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.row_data > li:hover{
+    text-decoration: underline;
+}

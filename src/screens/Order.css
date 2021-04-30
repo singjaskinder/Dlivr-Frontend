@@ -1,0 +1,132 @@
+*{
+    margin: 0;
+  padding: 0;
+}
+.order{
+    min-height: 90vh;
+    width: 80vw;
+    display: inline-flex;
+    justify-content: end;
+    flex-wrap: wrap;
+    padding-right: 20px;
+
+}
+
+.OrderStatus{
+    color: white;
+    display: inline-flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 80vw;
+    min-height: 5vh;
+    padding: 10px;
+}
+.OrderStatus h1{
+    width: 100vw;
+}
+.OrderStatus span{
+    border-radius: 1px;
+    border: none;
+    background-color:white ;
+    width: 17vw;
+    height:1.5px;
+    text-align: left;
+}
+.orderDetail{
+    display: inline-flex;
+    justify-content: start;
+    flex-wrap: wrap;
+    width: 80vw;
+    min-height: 40vh;
+    background-color: white;
+    border: solid 1px #9933ff;
+
+}
+.orderImg{
+    width:80vw;
+    padding-left: 10px;
+    display: inline-flex;
+    overflow-x: scroll;
+    justify-content: start;
+    background-color: white;
+    border: solid 1px #9933ff;
+
+}
+.orderDetail span {
+    background-color:#d9b3ff;
+    padding-top: 10px;
+    margin: 10px;
+    min-height: 10vh;
+    width: 10vw;
+    border-radius: 3px;
+}
+.orderDetail span h5{
+    overflow-wrap: break-word;
+    color: white;
+    font-size: 3vh;
+}
+.orderDetail span p{
+    padding: 5px;
+    overflow-wrap: break-word;
+    font-size: 2vh;
+}
+
+.orderImg span{
+    padding: 5px;
+    border-radius: 3px;
+
+}
+.orderImg span img{
+    width :10vmax;
+    height :10vmax;
+}
+
+/* -------------------------- */
+
+.container {
+    margin:0px;
+    width:60vw;
+    display: flex;
+    list-style: none;
+    max-height: 20px;
+    padding: 0;
+    justify-content: space-between;
+    align-items: stretch;
+    align-content: stretch;
+  }
+  
+  .link {
+      padding-left:2px ;
+    border-top: 2px solid white;
+    text-align: left;
+    position: relative;
+    margin-top: 10px;
+    width: 100%;
+  }
+
+  .a{
+    position: relative;
+    margin-top: 10px;
+    width: 0;
+  }
+  
+  .link::after {
+    content: "";
+    width: 10px;
+    height: 10px;
+    background: #fff;
+    position: absolute;
+    border-radius: 10px;
+    top: -6px;
+    left: 0%;
+    transform: translatex(-50%);
+  }
+  .done{
+    border-top: 2px solid #4e1983;
+    }
+    .done::after{
+        background: #4e1983;
+      }
+  .active::after{
+    background: #4e1983;
+  }
