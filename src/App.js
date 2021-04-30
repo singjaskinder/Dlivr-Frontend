@@ -6,7 +6,7 @@ import AddAdmin from "./screens/AddAdmin";
 import UserDetails from "./screens/UserDetails";
 import AdminDetails from "./screens/AdminDetails";
 import DriverDetails from "./screens/DriverDetails";
-import Dashboard from "./screens/Dashboard";
+//import Dashboard from "./screens/Dashboard";
 // const hist = createBrowserHistory();
 
 function App() {
@@ -22,7 +22,7 @@ function App() {
       <Route path="/user" component={UserDetails}/>
       <Route path="/addadmin" component={AddAdmin}/>
       <Route path="/adminacc" component={AdminDetails }/>
-      <Route path="/dashboard" component={Dashboard}/>
+      
       {/* <Redirect from="/" to="welcome" />  */}
     </Switch>
     </div>
