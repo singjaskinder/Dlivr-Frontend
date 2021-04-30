@@ -47,7 +47,7 @@ function Sidebar() {
                         Support
                     </p>
                 </NavLink>
-                <NavLink to="/offers" className="element" activeClassName="active_element">
+                <NavLink to="/offer" className="element" activeClassName="active_element">
                     <i className="fas fa-cubes"></i>
                     <p className="element_title">
                         Offers

@@ -1,0 +1,63 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+.tracking{
+    display: block;
+    width: 80vw;
+    overflow: hidden;
+}
+.trackinglist{
+    overflow-y: scroll;
+    height: 70vh;
+}
+.trackinglist::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.trackinglist {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.tracking .trackinghead span{
+    display: inline-flex;
+    flex-wrap: wrap;
+    width:18%;
+    padding-left: 2%;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    background-color: white;
+    color:#9933ff ;
+}
+.tracking .trackinghead{
+    background-color: white;
+    margin: 20px 0px 10px 0px;
+    padding: 0 2% 0 2%;
+    border-radius: 10px;
+}
+.tracking .trackinglist .iorder span{
+    display: inline-flex;
+    flex-wrap: wrap;
+    width:18%;
+    padding-left: 2%;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    background-color: #9933ff;
+    color:white ;
+}
+.tracking .trackinglist .iorder{
+    background-color: #9933ff;
+    color:white !important ;
+    text-decoration: none;
+    margin: 1px 0px 1px 0px;
+    padding: 0 2% 0 2%;
+    border-radius: 5px;
+}
+.ref{
+    color: white;
+}
+.ref:hover{
+    color:yellow
+}
