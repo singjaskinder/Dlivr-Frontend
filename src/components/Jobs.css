@@ -1,0 +1,37 @@
+.jobs{
+    display: inline-flex;
+    flex-direction: row;
+    background-color: #ffffff;
+    border-radius: 9px;
+    margin-top:30px;
+    height:50px;
+    box-shadow:  5px 5px 5px grey;
+    
+}
+.jobs-det{
+    display: inline-flex;
+    flex-direction: row;
+    background-color: rgb(90, 79, 189);
+    border-radius: 9px;
+    margin-top:30px;
+    height:50px;
+    box-shadow:  5px 5px 5px grey;
+    color:#fff;
+}
+.jobs>h5{
+   
+    color:rgb(90, 79, 189);
+    padding-top:15px;
+    margin:0 80px 0 10px;
+    
+    font-size:1rem;
+    font-weight: bold;
+}
+.jobs-det>h4{
+   
+    color:#fff;
+    padding-top:15px;
+    margin:0 80px 0 10px;
+    font-size:1rem;
+    font-weight: bold;
+}
