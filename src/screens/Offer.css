@@ -58,7 +58,8 @@
 }
 .list{
     overflow-y: scroll;
-    height: 25vh;
+    height: 30vh;
+    border-radius: 5px;
 }
 .list::-webkit-scrollbar {
     display: none;

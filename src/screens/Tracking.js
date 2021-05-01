@@ -1,5 +1,5 @@
 import "./temp.css"
-import { useState,useEffect } from "react";
+import  { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 
 import "./Tracking.css"
@@ -11,7 +11,7 @@ import axios from "axios";
 
 function Order(prop) {
     return (
-        <NavLink  className="ref" to={"tracking/" + prop.id} >
+        <NavLink className="ref" to={"tracking/" + prop.id} >
             <div className="iorder">
                 <span>
                     {prop.id}
@@ -34,30 +34,29 @@ function Order(prop) {
 }
 function Tracking() {
 
-    const [job, setJob] = useState({});
+    const [Job,setJob] = useState([]);
 
+    const  GetJob = async ()=>{
 
-    useEffect(async () => {
-
-        console.log("111");
-        await axios({
-            method: 'post',
-            url: '/admin/getJobs',
-            data: {
-                lastJobId: null,
-                recordsPerPage: 10
+        axios({
+            method:"POST",
+            url:"/admin/getJobs",
+            data:{
+                recordsPerPage: 30
             }
         })
-            .then(response => {
-                // const list = document.getElementById("trackinglist")
-                const data = response.data.data[0].foundJobs;
-                console.log(data);
-                console.log("0w9w0")
-                setJob(data);
-                console.log(job);
-            })
-            .catch(err => console.log(err))
-    }, []);
+        .then(res => {
+            console.log(res.data.data[0].foundJobs)
+            setJob(res.data.data[0].foundJobs);
+        })
+        .catch(err=> console.log(err))
+    }
+
+
+
+    useEffect(()=>{
+        GetJob();
+    },[])
 
     return (
         <div className="tracking">
@@ -68,35 +67,23 @@ function Tracking() {
                 <span>Driver</span>
                 <span>Status</span>
             </div>
-            <div className="trackinglist">
-            <Order 
-                         
-                         key="0"
-                         id= "3493223"
-                         date="17-09-2021"
-                         location="Chennai"
-                         status="Bidding"
-                         driver="Rakesh"
- 
- 
-                         
-                         />
-                 {/* {job.map((job, index) => {
-                    return (
-                        <Order 
-                         
-                        key={index}
-                        id= {job.id}
-                        date={job.delivered_date}
-                        location={job.pick_location}
-                        status={job.status}
-                        driver="Driver1"
+            <div className="trackinglist" id="trackinglist">
+                {
+                    Job.map((job,index)=>{
+                             return(
+                                 <div>
+                                 <Order
 
-
-                        
-                        />
-                    );
-                })} */}
+                                id={job._id}
+                                date="17.06.2021"
+                                location={job.pick_address}
+                                status={job.status}
+                                driver="DriverOP"
+                                 />
+                                 </div>
+                             )
+                    })
+                }
             </div>
         </div>
     );

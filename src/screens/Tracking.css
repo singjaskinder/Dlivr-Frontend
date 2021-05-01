@@ -6,7 +6,18 @@
     display: block;
     width: 80vw;
     overflow: hidden;
+    padding: 10px;
 }
+.tracking::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.tracking {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
 .trackinglist{
     overflow-y: scroll;
     height: 70vh;
@@ -54,10 +65,4 @@
     margin: 1px 0px 1px 0px;
     padding: 0 2% 0 2%;
     border-radius: 5px;
-}
-.ref{
-    color: white;
-}
-.ref:hover{
-    color:yellow
 }
