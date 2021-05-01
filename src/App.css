@@ -17,3 +17,40 @@
   height: 90%;
   padding: 20px;
 }
+.main_div::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.main_div {
+-ms-overflow-style: none;  /* IE and Edge */
+scrollbar-width: none;  /* Firefox */
+}
+
+@import url("https://fonts.googleapis.com/css2?family=Nunito&display=swap");
+* {
+  font-family: "Nunito", sans-serif;
+}
+
+.custom-container {
+  margin: 20px;
+  border-radius: 10px;
+  background-color: white;
+  /* box-shadow: 2px 2px grey; */
+}
+
+.bg-main {
+  background-color: #b6a0d8;
+}
+
+.bg-button {
+  background-color: #603e97;
+  border-radius: 8px;
+  padding: 0.6rem 4rem;
+  margin: 2px 6px;
+  color: white;
+}
+.btn:focus {
+  outline: none;
+  box-shadow: none;
+}
