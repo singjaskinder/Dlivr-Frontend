@@ -1,6 +1,7 @@
 import "./temp.css"
 import react, { useState, useEffect } from "react";
 import "./Offer.css"
+import ScreenHeading from "../components/ScreenHeading"
 
 
 
@@ -31,7 +32,9 @@ function Offer() {
         <div >
             <div className="offer">
                 <div>
-                    <p className=" fs-3 text-light">Offer</p>
+                <ScreenHeading 
+                heading="Offers"
+            />
                 </div>
                 <div>
                     <form class="form">

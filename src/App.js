@@ -15,19 +15,28 @@ import Notification from './screens/Notification';
 import CreateAdmin from './screens/CreateAdmin';
 import SupportListing from './screens/SupportListing';
 import SupportConversation from './screens/SupportConversation';
+import Login from "./screens/Login"
+import DriverDetails from "./screens/DriverDetails"
+import UserDetails from "./screens/UserDetails"
+import AdminDetails from "./screens/AdminDetails"
 
 
 function App() {
   return (
     <div className="App">
       <Router>
+        <Switch>
+          <Route exact path="/login" component={Login}/>
+        </Switch>
         <Navbar />
         <Sidebar />
         <div className="main_div">
           <Switch>
             <Route exact path='/dashboard' component={DashBoard} />
-            <Route exact path='/adminAccount' component={AdminAccount} />
+            {/* <Route exact path='/adminAccount/' component={AdminAccount} /> */}
+            <Route exact path="/adminAccount" component={AdminDetails }/>
             <Route exact path='/adminAccount/create' component={CreateAdmin} />
+            <Route exact path='/adminAccount/:Adminid' component={AdminAccount} />
             <Route exact path='/userAccount' component={UserAccount} />
             <Route exact path='/tracking' component={Tracking} />
             <Route exact path='/tracking/:job' component={Job} />
@@ -37,6 +46,8 @@ function App() {
             <Route exact path='/support/conversation' component={SupportConversation} />
             <Route exact path='/offer' component={Offer} />
             <Route exact path='/notifications' component={Notification} />
+            <Route exact path="/driver" component={DriverDetails}/>
+            <Route exact path="/user/:UserId" component={UserDetails}/>
           </Switch>
         </div>
       </Router>

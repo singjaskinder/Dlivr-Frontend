@@ -4,6 +4,7 @@ import { NavLink } from "react-router-dom";
 
 import "./Tracking.css"
 import axios from "axios";
+import ScreenHeading from "../components/ScreenHeading"
 
 
 
@@ -48,6 +49,7 @@ function Tracking() {
         .then(res => {
             console.log(res.data.data[0].foundJobs)
             setJob(res.data.data[0].foundJobs);
+            
         })
         .catch(err=> console.log(err))
     }
@@ -60,6 +62,9 @@ function Tracking() {
 
     return (
         <div className="tracking">
+            <ScreenHeading 
+                heading="Track Jobs"
+            />
             <div className="trackinghead">
                 <span>Id</span>
                 <span>Date</span>

@@ -1,0 +1,42 @@
+
+.admin-card{
+  display:flex;
+  flex-direction:column;
+  border-radius: 25px;
+  /* position:realtive; */
+  /* padding: 25px 15px; */
+  background-color: #fcfcfc;
+  /* margin: 50px 0; */
+  height: 290px;
+  width:280px;
+  box-shadow: 0 2px 5px rgb(38, 35, 35);
+  text-align: center;
+  color:rgb(89, 93, 199);
+  margin:40px;
+  /* position:absolute; */
+
+
+}
+.ad-img{
+  margin-top:10px;
+ 
+  /* background-color:red; */
+}
+.adm-detail{
+  margin-bottom:20px;
+  /* background-color:pink; */
+}
+.circle-img {
+    border-radius: 50%;
+    border: 7px solid rgb(255, 245, 245);
+    width: 120px;
+    height: 120px;
+  
+  }
+.ad-name{
+  font-size:1.5rem;
+  padding-top:0px;
+  font-weight:bold;
+}
+
+
