@@ -1,11 +1,14 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./Order.css"
+import axios from "axios";
+import { useHistory } from "react-router-dom"
 
 function OrderImg(prop) {
 
     return (
         <span>
-            <img src={prop.imgsrc} alt="Job Image"></img>
+            <img src={"https://storage.googleapis.com/dlivr-55a47.appspot.com/"+prop.imgsrc} alt="Job Image"></img>
+
         </span>
     )
 }
@@ -13,7 +16,7 @@ function OrderImg(prop) {
 function OrderCard(prop) {
 
     return (
-        <span>
+        <span id={prop.Id}>
             <h5>{prop.name}</h5>
             <p>{prop.Id}</p>
         </span>
@@ -23,28 +26,107 @@ function OrderCard(prop) {
 
 function Order() {
 
-    const [name, setname] = useState("Sanjay");
-    const [pickDate, setpickDate] = useState("19 April 2022");
-    const [status, setstatus] = useState("Bidding");
-    const [driver, setdriver] = useState("Ramesh");
-    const [pickLocation, setpickLocation] = useState("Delhi");
-    const [dropLocation, setdropLocation] = useState("Sydney");
-    const [dropDate, setdropDate] = useState("27 april 2022");
-    const [fastDelivry, setfastDelivry] = useState("YES");
-    const [bidding, setbidding] = useState("20000");
-    const [jobType, setjobType] = useState("Shoplifting");
-    const [title, settitle] = useState("Shop Transfer");
-    const [orderId, setorderId] = useState("01231232");
+    const history = useHistory();
+
+    const [name, setname] = useState("NA");
+    const [pickDate, setpickDate] = useState("NA");
+    const [status, setstatus] = useState("NA");
+    const [driver, setdriver] = useState("NA");
+    const [pickLocation, setpickLocation] = useState("NA");
+    const [dropLocation, setdropLocation] = useState("NA");
+    const [dropDate, setdropDate] = useState("NA");
+    const [fastDelivry, setfastDelivry] = useState("NA");
+    const [jobType, setjobType] = useState("NA");
+    const [title, settitle] = useState("NA");
+    const [orderId, setorderId] = useState("00000000000000000000000");
+    const [package_size, setpackage_size] = useState("NA");
+    const [package_weight, setpackage_weight] = useState("NA");
+    const [extra_help, setextra_help] = useState("NA");
+    const [images, setimages] = useState([]);
+
+    const GetJob = async () => {
+
+        const url = '/job/'+ history.location.pathname.split("/")[2] ;
+        axios({
+            method: "get",
+            url: url
+        })
+            .then(res => {
+                const data = res.data.data[0].requestedJob;
+                console.log(data._id);
+
+                setname(data.userId.name);
+                setpickDate(data.bidding_end_date)
+                setstatus(data.status)
+                settitle(data.package_title)
+                setpickLocation(data.pick_address)
+                setdropLocation(data.drop_address)
+                setdropDate(data.delivered_date)
+                setfastDelivry(data.fast_delivery)
+                setjobType(data.job_type)
+                setorderId(data._id)
+                setpackage_size(data.package_size)
+                setpackage_size(data.package_size)
+                setpackage_weight(data.package_weight)
+                setextra_help(data.extra_help)
+                setimages(data.images)
+                // setdriver(data.driverId.name)
+
+
+                const b=document.getElementById("bidding");
+                const u=document.getElementById("upcoming");
+                const i=document.getElementById("inprogress");
+                const c=document.getElementById("completed");
+
+                if(data.status==="bidding"){
+                    b.classList.add('active');
+                }
+                else if(data.status==="upcoming"){
+                    b.classList.add('done');
+                    u.classList.add('active');
+                }
+                else if(data.status==="inprogress"){
+                    b.classList.add('done');
+                    u.classList.add('done');
+                    i.classList.add('active');
+                    console.log(1)
+                }
+                else if(data.status==="completed"){
+                    b.classList.add('done');
+                    u.classList.add('done');
+                    i.classList.add('done');
+                    c.classList.add('active');
+                }
+                else if(data.status==="cancelled"){
+                    const st = document.getElementById("OrderStatus");
+                    st.classList.add("hidden")
+                    const cn = document.getElementById("cancelled");
+                    cn.classList.add("text-danger")
+                    cn.classList.add("fw-bold")
+
+                }
+                console.log(data.images[0].path)
+
+            })
+            .catch(err => console.log(err))
+    }
+
+
+
+    useEffect(() => {
+        GetJob();
+    }, [])
 
 
     return (
         <div className="order">
-            <div className="OrderStatus" >
-                <h1>Order Id: {orderId}</h1>
-                <ul class="container">
-                    <li className="link done" id="bidding">Bidding</li>
-                    <li className="link done" id="upcoming">Upcoming</li>
-                    <li className="link active " id="inprogress">Inprogress</li>
+            <div className="OrderStatus"  >
+                <h4>Job Id: {orderId}</h4>
+                <ul class="container" id="OrderStatus">
+                    
+                    <li className="link " id="bidding">Bidding</li>
+                    <li className="link " id="upcoming">Upcoming</li>
+                    <li className="link  " id="inprogress">Inprogress</li>
                     <li className="link a" id="completed">Completed</li>
                 </ul>
             </div>
@@ -79,10 +161,6 @@ function Order() {
                     Id={dropLocation}
                 />
                 < OrderCard
-                    name="Bidding"
-                    Id={bidding}
-                />
-                < OrderCard
                     name="Fast Delivery"
                     Id={fastDelivry}
                 />
@@ -94,20 +172,31 @@ function Order() {
                     name="Job Type"
                     Id={jobType}
                 />
+                < OrderCard
+                    name="Job Type"
+                    Id={package_size}
+                />
+                < OrderCard
+                    name="Job Type"
+                    Id={package_weight}
+                />
+                < OrderCard
+                    name="Job Type"
+                    Id={extra_help}
+                />
+
             </div>
             <div className="orderImg">
-                < OrderImg
-                    imgsrc="https://storage.googleapis.com/dlivr-55a47.appspot.com/Chat/imgfile__1619520951147.png"
-                />
-                < OrderImg
-                    imgsrc="https://storage.googleapis.com/dlivr-55a47.appspot.com/Chat/imgfile__1619520951147.png"
-                />
-                < OrderImg
-                    imgsrc="https://storage.googleapis.com/dlivr-55a47.appspot.com/Chat/imgfile__1619520951147.png"
-                />
-                < OrderImg
-                    imgsrc="https://storage.googleapis.com/dlivr-55a47.appspot.com/Chat/imgfile__1619520951147.png"
-                />
+            {
+                    images.map((image,index)=>{
+                             return(
+                                 <OrderImg
+                                imgsrc={image.path}
+                                 />
+                             )
+                    })
+                }
+                
             </div>
         </div>
     );

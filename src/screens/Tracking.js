@@ -36,6 +36,8 @@ function Order(prop) {
 function Tracking() {
 
     const [Job,setJob] = useState([]);
+    const [lastJobId,setlastJobId]=useState(null);
+    const [pageno ,setpageno]=useState(0);
 
     const  GetJob = async ()=>{
 
@@ -43,12 +45,20 @@ function Tracking() {
             method:"POST",
             url:"/admin/getJobs",
             data:{
-                recordsPerPage: 30
+                recordsPerPage: 10,
+                lastJobId
             }
         })
         .then(res => {
             console.log(res.data.data[0].foundJobs)
             setJob(res.data.data[0].foundJobs);
+            setlastJobId(res.data.data[0].lastJobId)
+            if(res.data.data[0].foundJobs.length  === 10){
+                setpageno((prev)=>prev+1);
+            }
+            else{
+                setpageno(0);
+            }
             
         })
         .catch(err=> console.log(err))
@@ -89,6 +99,14 @@ function Tracking() {
                              )
                     })
                 }
+            </div>
+            <div>
+                <button className="btn bg-page">
+                    {pageno}
+                </button>
+                <button className="btn bg-next"btn-info onClick={GetJob}>
+                    next
+                </button>
             </div>
         </div>
     );

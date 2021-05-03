@@ -1,8 +1,7 @@
 .driver-det{
     display:flex;
-    flex-direction:column;
+    flex-direction:row;
     flex-wrap:wrap;
-    box-shadow:  6px 6px 6px grey;
     
 }
 .driver-det-head{

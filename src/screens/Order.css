@@ -34,7 +34,7 @@
 }
 .orderDetail{
     display: inline-flex;
-    justify-content: start;
+    justify-content: center;
     flex-wrap: wrap;
     width: 80vw;
     min-height: 40vh;
@@ -45,6 +45,7 @@
 .orderImg{
     width:80vw;
     padding-left: 10px;
+    padding-top: 5px;
     display: inline-flex;
     overflow-x: scroll;
     justify-content: start;
@@ -53,6 +54,7 @@
 
 }
 .orderDetail span {
+    text-align: center;
     background-color:#d9b3ff;
     padding-top: 10px;
     margin: 10px;
@@ -61,9 +63,11 @@
     border-radius: 3px;
 }
 .orderDetail span h5{
+    text-align: center;
     overflow-wrap: break-word;
     color: white;
     font-size: 3vh;
+    margin:0 !important;
 }
 .orderDetail span p{
     padding: 5px;
@@ -72,13 +76,14 @@
 }
 
 .orderImg span{
+    margin: auto;
     padding: 5px;
     border-radius: 3px;
-
+    height: auto;
 }
 .orderImg span img{
-    width :10vmax;
-    height :10vmax;
+    width :8vmax;
+    height :8vmax;
 }
 
 /* -------------------------- */
@@ -129,4 +134,8 @@
       }
   .active::after{
     background: #4e1983;
+  }
+
+  .order .hidden{
+      visibility: hidden;
   }

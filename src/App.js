@@ -7,7 +7,6 @@ import UserAccount from "./screens/UserAccount"
 import Tracking from "./screens/Tracking"
 import Job from "./screens/Order"
 import Vehicles from "./screens/Vehicles"
-// import Support from "./screens/Support"
 import Offer from "./screens/Offer"
 import VehiclesData from "./screens/VehicleData"
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
