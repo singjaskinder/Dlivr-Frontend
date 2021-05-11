@@ -1,0 +1,25 @@
+
+.admin-head-con{
+    display:flex;
+    flex-direction:row; 
+}
+.admin-card-con{
+   widows: 20px;
+}
+.ad-card{
+    display:flex;
+    flex-direction:row;
+    flex-wrap:wrap;
+}
+.add-admin-btn{
+  color:#fff;
+  background-color: rgb(87, 69, 202); 
+  border:none;
+  font-size: 16px;
+  border-radius:8px;
+  width:100px;
+  height:40px;
+  margin-top:20px;
+  margin-left:440px;
+
+}

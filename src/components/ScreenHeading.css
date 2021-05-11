@@ -1,0 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+.heading{
+    color: #fff;
+    padding: 10px;
+}
+.heading > p{
+    font-family: 'Poppins', sans-serif;
+    font-size: 2.5em;
+}

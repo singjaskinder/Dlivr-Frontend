@@ -1,0 +1,42 @@
+
+.skeleton_VehicleCount{
+    width: 390px;
+    border-radius: 20px;
+    display: flex;
+    padding: 10px;
+    background-color: #E8DAEF;
+    justify-content: center;
+    margin-bottom: 10px;
+    position: relative;
+    overflow: hidden;
+    /* align-items: center; */
+}
+.skeleton_countTexts{
+    min-width: 60%;
+    padding: 10px;
+}
+.skeleton_vehicleLogo{
+    width: 40%;
+}
+.skeleton_filter{
+    display: flex;
+    border-radius: 20px;
+    background-color: #E8DAEF;
+    height: 80px;
+    width: 400px;
+    justify-content: center;
+    /* align-items: center; */
+}
+
+.skeleton_button{
+    width: 100px;
+    height: 60%;
+    margin: 5px;
+}
+
+.skeleton_rows{
+    padding: 20px;
+    border-radius: 20px;
+    background-color: #E8DAEF;
+    margin-top: 10px;
+}
