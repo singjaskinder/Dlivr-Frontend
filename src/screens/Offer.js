@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import "./Offer.css"
 import axios from "axios";
 import ScreenHeading from "../components/ScreenHeading"
+import { toast } from 'react-toastify';
 
 const URL="https://dlivr.herokuapp.com";
 
@@ -53,17 +54,16 @@ function Offer() {
     }
 
     const postOffer = async (e) => {
-
-
         e.preventDefault();
-        axios({
-            method: "POST",
-            url: URL+"/admin/608195e25774e94c0c706a23/addoffer",
-            data: {
-                description,
-                offValue,
-                offerCode,
-                expiration
+        await axios.post("/admin/offer", {
+            description,
+            offValue,
+            offerCode,
+            expiration           
+        },{
+            headers:{
+                "Content-Type":"application/json",
+                "Authorization":"Bearer "+ JSON.parse(localStorage.getItem("token"))
             }
         })
             .then(res => {
@@ -71,9 +71,7 @@ function Offer() {
                 setoffValue("")
                 setofferCode("")
                 setexpiration("")
-                setMessage(res.data.message);
-                GetOffer();
-
+                toast.success(res.data.message)
             })
             .catch(err => console.log(err))
     }
@@ -92,7 +90,7 @@ function Offer() {
                     />
                 </div>
                 <div>
-                    <form class="form" onSubmit={postOffer}>
+                    <form class="form" >
                         <label >ADD OFFER</label><br></br>
                         <label className="message">{message}</label><br></br>
                         <label >Description</label>
@@ -109,7 +107,7 @@ function Offer() {
 
                         <input className="form-control a" required placeholder={new Date()} type="date" onChange={(e) => setexpiration(e.target.value)} value={expiration} >
                         </input>
-                        <button className="btn bttns" type="submit">
+                        <button onClick={postOffer} className="btn bttns" type="submit">
                             Publish
                         </button>
                     </form>

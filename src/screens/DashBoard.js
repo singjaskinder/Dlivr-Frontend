@@ -8,7 +8,13 @@ import { Row, Col } from "react-bootstrap";
 import axios from "axios";
 
 const URL="https://dlivr.herokuapp.com";
+
+
+
+
 const TotalCountTab = ({ icon, text, count }) => {
+
+  
   return (
     <div
       className="count-tab custom-container "
@@ -22,6 +28,36 @@ const TotalCountTab = ({ icon, text, count }) => {
 };
 
 const Dashboard = () => {
+
+  const [userCount, setUserCount] = useState(0)
+const [driverCount, setDriverCount] = useState(0)
+const [jobCount, setJobCount] = useState(0)
+useEffect(() => {
+ const calculateUsersCount= async ()=>{
+  const userCount= await axios.get("/admin/users-count", {
+    headers:{
+      "Content-Type":"application/json",
+      "Authorization":"Bearer "+ JSON.parse(localStorage.getItem("token"))
+    }
+  })
+  setUserCount(userCount.data.data)
+  const driverCount= await axios.get("/admin/drivers-count", {
+    headers:{
+      "Content-Type":"application/json",
+      "Authorization":"Bearer "+ JSON.parse(localStorage.getItem("token"))
+    }
+  })
+  setDriverCount(driverCount.data.data)
+  const jobCount= await axios.get("/admin/users-count", {
+    headers:{
+      "Content-Type":"application/json",
+      "Authorization":"Bearer "+ JSON.parse(localStorage.getItem("token"))
+    }
+  })
+  setJobCount(jobCount.data.data)
+}
+calculateUsersCount()
+}, [])
   const [data, setData] = useState([]);
   const [period, setPeriod] = useState("week");
   var customData = {
@@ -82,12 +118,12 @@ const Dashboard = () => {
   return (
     <div className="" style={{ width: "100%", backgroundColor: "#B49FD7" }}>
       <div className="dashboard-tabs">
-        <TotalCountTab icon={<WorkIcon />} text="Total Jobs" count={2541} />
-        <TotalCountTab icon={<PeopleIcon />} text="Total Users" count={2541} />
+        <TotalCountTab icon={<WorkIcon />} text="Total Jobs" count={jobCount} />
+        <TotalCountTab icon={<PeopleIcon />} text="Total Users" count={userCount} />
         <TotalCountTab
           icon={<DriveEtaIcon />}
           text="Total Drivers"
-          count={2541}
+          count={driverCount}
         />
       </div>
       <div className="px-2 graph-list-container dashboard-container-height">

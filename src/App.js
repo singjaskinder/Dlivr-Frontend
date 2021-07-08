@@ -19,13 +19,11 @@ import DriverDetails from "./screens/DriverDetails"
 import UserDetails from "./screens/UserDetails"
 import AdminDetails from "./screens/AdminDetails"
 import Drivers from "./screens/Drivers";
-
-
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-
 function App() {
+
   return (
     <div className="App">
       <Router>
@@ -53,8 +51,6 @@ function App() {
             <Route exact path='/notifications' component={Notification} />
             <Route exact path="/driver" component={DriverDetails}/>
             <Route exact path="/driver/:id" component={Drivers}/>
-           
-
           </Switch>
         </div>
       </Router>
