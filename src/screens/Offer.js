@@ -42,14 +42,12 @@ function Offer() {
 
     const GetOffer = async () => {
 
-        axios({
-            method: "GET",
-            url: URL+"/admin/offer/all",
-        })
-            .then(res => {
-                console.log(res.data.data[0])
+        axios.get("/admin/offer/all", {
+           headers:{ "Content-Type": "application/json",
+            "Authorization":"Bearer "+ JSON.parse(localStorage.getItem("token"))}
+        }).then(res => {               
+            console.log(res)
                 setOffer(res.data.data[0]);
-
             })
             .catch(err => console.log(err))
     }

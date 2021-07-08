@@ -36,6 +36,7 @@ function App() {
         <Sidebar />
         <div className="main_div">
           <Switch>
+            {/* <Route exact path='/' component={Login} /> */}
             <Route exact path='/dashboard' component={DashBoard} />
             <Route exact path="/adminAccount" component={AdminDetails }/>
             <Route exact path='/adminAccount/create' component={CreateAdmin} />

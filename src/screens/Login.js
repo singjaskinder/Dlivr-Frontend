@@ -15,16 +15,17 @@ function Login({ Login, error }) {
   const submitHandler = async (e) => {
     e.preventDefault();
     axios
-      .post(URL+"/admin/login", {
+      .post("/admin/login", {
         email,
         password,
       })
       .then((response) => {
         toast.success(response.data.message)
-        console.log(response);
+        localStorage.setItem("token", JSON.stringify(response.data.data[0].token))
         history.push("/dashboard");
       })
       .catch((e) => {
+        console.log(e)
         toast.info(e.response.data.message, {
         });
         console.log(e)
