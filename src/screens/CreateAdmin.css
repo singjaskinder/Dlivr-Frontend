@@ -1,0 +1,14 @@
+.create-admin-container {
+  display: flex;
+  justify-content: space-around;
+  padding: 20px;
+  margin: 20px;
+}
+
+/* .create-admin-fields {
+  margin: 10 !important;
+} */
+.MuiInputBase-input {
+  /* margin: 10 !important; */
+  /* width: 100%; */
+}

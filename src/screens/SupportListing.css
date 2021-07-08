@@ -1,0 +1,16 @@
+.support-listing-list {
+  display: flex;
+  justify-content: space-between;
+  color: #603e97;
+  font-weight: 600;
+  box-shadow: 1px 2px grey;
+}
+
+.support-listing-ul {
+  /* padding: 1px 2rem; */
+}
+
+.support-listing-header {
+  justify-content: space-between;
+  display: flex;
+}
