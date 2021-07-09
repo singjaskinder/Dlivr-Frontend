@@ -43,11 +43,13 @@ function Tracking() {
 
         axios({
             method:"GET",
-            url:URL+"/admin/getJobs",
+            url:URL+`/admin/jobs`,
             params:{
                 recordsPerPage: 10,
                 lastJobId
-            }
+            },
+            headers:{ "Content-Type": "application/json",
+            "Authorization":"Bearer "+ JSON.parse(localStorage.getItem("token"))}
         })
         .then(res => {
             console.log(res.data.data[0].foundJobs)
@@ -61,7 +63,10 @@ function Tracking() {
             }
             
         })
-        .catch(err=> console.log(err))
+        .catch(err=> {
+            console.log(err)
+            alert("got error")
+        })
     }
 
 

@@ -1,15 +1,15 @@
 import { useState, useEffect } from "react";
 import "./Order.css"
 import axios from "axios";
-import { useHistory } from "react-router-dom"
+import { useHistory, useParams } from "react-router-dom"
 
-const URL="https://dlivr.herokuapp.com";
+const URL = "https://dlivr.herokuapp.com";
 
 function OrderImg(prop) {
 
     return (
         <span>
-            <img src={"https://storage.googleapis.com/dlivr-55a47.appspot.com/"+prop.imgsrc} alt="Job Image"></img>
+            <img src={"https://storage.googleapis.com/dlivr-55a47.appspot.com/" + prop.imgsrc} alt="Job Image"></img>
 
         </span>
     )
@@ -29,6 +29,7 @@ function OrderCard(prop) {
 function Order() {
 
     const history = useHistory();
+    const { job } = useParams();
 
     const [name, setname] = useState("NA");
     const [pickDate, setpickDate] = useState("NA");
@@ -48,60 +49,65 @@ function Order() {
 
     const GetJob = async () => {
 
-        const url = URL+'/job/'+ history.location.pathname.split("/")[2] ;
+        const url = URL + '/job/' + job;
         axios({
             method: "get",
-            url: url
+            url: url,
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + JSON.parse(localStorage.getItem("token"))
+            }
         })
             .then(res => {
                 console.log("api called")
                 console.log(res)
                 const data = res.data.data[0].requestedJob;
-                console.log(data._id);
+                console.log(data)
+                console.log(data.job_type)
 
-                setname(data.userId !== null ? data.userId : "Temp User");
+                setname(data.userId !== null ? data.userId._id : "Temp User");
                 setpickDate(data.bidding_end_date)
                 setstatus(data.status)
                 settitle(data.package_title)
                 setpickLocation(data.pick_address)
                 setdropLocation(data.drop_address)
                 setdropDate(data.delivered_date)
-                setfastDelivry(data.fast_delivery)
+                setfastDelivry(data.fast_delivery ? "yes" : "no")
                 setjobType(data.job_type)
                 setorderId(data._id)
                 setpackage_size(data.package_size)
-                setpackage_size(data.package_size)
+                // setpackage_size(data.package_size)
                 setpackage_weight(data.package_weight)
                 setextra_help(data.extra_help)
                 setimages(data.images)
-                // setdriver(data.driverId.name)
+                setdriver(data.driverId.name)
 
 
-                const b=document.getElementById("bidding");
-                const u=document.getElementById("upcoming");
-                const i=document.getElementById("inprogress");
-                const c=document.getElementById("completed");
+                const b = document.getElementById("bidding");
+                const u = document.getElementById("upcoming");
+                const i = document.getElementById("inprogress");
+                const c = document.getElementById("completed");
 
-                if(data.status==="bidding"){
+                if (status === "bidding") {
                     b.classList.add('active');
                 }
-                else if(data.status==="upcoming"){
+                else if (status === "upcoming") {
                     b.classList.add('done');
                     u.classList.add('active');
                 }
-                else if(data.status==="inprogress"){
+                else if (status === "inprogress") {
                     b.classList.add('done');
                     u.classList.add('done');
                     i.classList.add('active');
                     console.log(1)
                 }
-                else if(data.status==="completed"){
+                else if (status === "completed") {
                     b.classList.add('done');
                     u.classList.add('done');
                     i.classList.add('done');
                     c.classList.add('active');
                 }
-                else if(data.status==="cancelled"){
+                else if (status === "cancelled") {
                     const st = document.getElementById("OrderStatus");
                     st.classList.add("hidden")
                     const cn = document.getElementById("cancelled");
@@ -127,7 +133,7 @@ function Order() {
             <div className="OrderStatus"  >
                 <h4>Job Id: {orderId}</h4>
                 <ul class="container" id="OrderStatus">
-                    
+
                     <li className="link " id="bidding">Bidding</li>
                     <li className="link " id="upcoming">Upcoming</li>
                     <li className="link  " id="inprogress">Inprogress</li>
@@ -177,30 +183,30 @@ function Order() {
                     Id={jobType}
                 />
                 < OrderCard
-                    name="Job Type"
+                    name="Package SIze"
                     Id={package_size}
                 />
                 < OrderCard
-                    name="Job Type"
+                    name="Package weight"
                     Id={package_weight}
                 />
                 < OrderCard
-                    name="Job Type"
+                    name="Extra Help"
                     Id={extra_help}
                 />
 
             </div>
             <div className="orderImg">
-            {
-                    images.map((image,index)=>{
-                             return(
-                                 <OrderImg
+                {
+                    images.map((image, index) => {
+                        return (
+                            <OrderImg
                                 imgsrc={image.path}
-                                 />
-                             )
+                            />
+                        )
                     })
                 }
-                
+
             </div>
         </div>
     );

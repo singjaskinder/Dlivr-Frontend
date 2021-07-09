@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import {useHistory} from "react-router-dom";
 
 const UnverifiedDriver = (params) => {
+    console.log("im in unverified")
     var history = useHistory();
     const [progress, setProgress] = useState(0)
     var { id } = params;
@@ -35,7 +36,9 @@ const UnverifiedDriver = (params) => {
     const getUnverifiedDriver = () => {
         axios({
             method: "GET",
-            url: URL+`/driver/${id}`,
+            url: URL+`/admin/driver/${id}`,
+            headers:{ "Content-Type": "application/json",
+            "Authorization":"Bearer "+ JSON.parse(localStorage.getItem("token"))}
 
         })
             .then(res => {
@@ -70,7 +73,9 @@ const UnverifiedDriver = (params) => {
     const verifyDriver = async ()=>{
         axios({
             method:"PUT",
-            url:URL+`/admin/verifyDriver/${id}`
+            url:URL+`/admin/verifyDriver/${id}`,
+            headers:{ "Content-Type": "application/json",
+            "Authorization":"Bearer "+ JSON.parse(localStorage.getItem("token"))}
         })
         .then(res=>{
             // console.log(res.data.message)

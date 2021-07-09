@@ -73,10 +73,12 @@ function UserAccount() {
         setProgress(70)
         axios({
             method: "GET",
-            url: URL+"/admin/getUsers",
+            url: URL+"/admin/users",
             params: {
                 recordsPerPage: 10
-            }
+            },
+            headers:{ "Content-Type": "application/json",
+            "Authorization":"Bearer "+ JSON.parse(localStorage.getItem("token"))}
         })
             .then(res => {
                 setProgress(100)
@@ -92,10 +94,12 @@ function UserAccount() {
         setProgress(70)
         axios({
             method: "GET",
-            url: URL+"/admin/getDrivers",
+            url: URL+"/admin/drivers",
             params: {
                 recordsPerPage: 10
-            }
+            },
+            headers:{ "Content-Type": "application/json",
+            "Authorization":"Bearer "+ JSON.parse(localStorage.getItem("token"))}
         })
             .then(res => {
                 setProgress(100)
@@ -111,10 +115,12 @@ function UserAccount() {
         setProgress(70)
         axios({
             method: "GET",
-            url: URL+"/admin/getUnverifiedDrivers",
+            url: URL+"/admin/unverified-drivers",
             params: {
                 recordsPerPage: 10
-            }
+            },
+            headers:{ "Content-Type": "application/json",
+            "Authorization":"Bearer "+ JSON.parse(localStorage.getItem("token"))}
         })
             .then(res => {
                 setData(res.data.data[0].foundDrivers);
@@ -194,7 +200,7 @@ function UserAccount() {
 
                     return (
 
-                        <NavLink to={URL+`/userAccount/${user}/${item._id}`} key={index} className="rowElement">
+                        <NavLink to={`/userAccount/${user}/${item._id}`} key={index} className="rowElement">
                             <p>{item.name}</p>
                             <p>{item.email}</p>
                             <p>{item.phone}</p>

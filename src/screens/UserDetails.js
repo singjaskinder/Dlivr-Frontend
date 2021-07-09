@@ -9,6 +9,7 @@ import UnverifiedDriver from "../screens/UnverifiedDriver"
 
 const UserDetails = () => {
     const {user, id} = useParams();
+    console.log({user, id})
     return (
         <>
         {user==="unverifiedDriver" && <UnverifiedDriver id={id}/>}

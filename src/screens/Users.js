@@ -37,11 +37,14 @@ const Users = (params) => {
     const getUser = () => {
         axios({
             method: "GET",
-            url: URL+`/admin/getUserById/${id}`,
+            url: URL+`/admin/user/${id}`,
+            headers:{ "Content-Type": "application/json",
+            "Authorization":"Bearer "+ JSON.parse(localStorage.getItem("token"))}
 
         })
             .then(res => {
                 // console.log(res)
+                console.log(res.data.data[0].user)
                 setUserName(res.data.data[0].user.name)
                 setUserPhone(res.data.data[0].user.phone)
                 setUserAddress(res.data.data[0].user.addresses)
@@ -60,7 +63,7 @@ const Users = (params) => {
     const getJobs = () => {
         axios({
             method: "GET",
-            url: URL+`/job/all/${id}`
+            url: URL+`/admin/jobs?id=${id}`
         })
             .then(res => {
                 setUserRecentJobs(res.data.data[0].alljobs)
@@ -74,7 +77,9 @@ const Users = (params) => {
     const banUser = () => {
         axios({
             method: "PUT",
-            url: URL+`/admin/banUser/${id}`
+            url: URL+`/admin/banUser/${id}`,
+            headers:{ "Content-Type": "application/json",
+            "Authorization":"Bearer "+ JSON.parse(localStorage.getItem("token"))}
         })
             .then(res => {
                 toast.success(res.data.message);
@@ -89,7 +94,9 @@ const Users = (params) => {
     const unBanUser = () => {
         axios({
             method: "PUT",
-            url: URL+`/admin/unbanUser/${id}`
+            url: URL+`/admin/unbanUser/${id}`,
+            headers:{ "Content-Type": "application/json",
+            "Authorization":"Bearer "+ JSON.parse(localStorage.getItem("token"))}
         })
             .then(res => {
                 toast.success(res.data.message);

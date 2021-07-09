@@ -12,13 +12,16 @@ function AdminDetails() {
     async function getAdmins() {
         axios({
             method: "get",
-            url:  URL+"/admin/all"
+            url:  URL+"/admin/all",
+            headers:{ "Content-Type": "application/json",
+            "Authorization":"Bearer "+ JSON.parse(localStorage.getItem("token"))}
         })
             .then(res => {
                 // console.log(typeof(res.data.data[0].admins))
                 setAdmins(res.data.data[0]);
             })
             .catch(err => {
+                alert("got error")
                 console.log(err)
             })
     }

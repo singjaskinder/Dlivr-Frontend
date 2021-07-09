@@ -64,7 +64,9 @@ function Offer() {
                 offValue,
                 offerCode,
                 expiration
-            }
+            },
+            headers:{ "Content-Type": "application/json",
+            "Authorization":"Bearer "+ JSON.parse(localStorage.getItem("token"))}
         })
             .then(res => {
                 setdescription("")
@@ -75,7 +77,10 @@ function Offer() {
                 GetOffer();
 
             })
-            .catch(err => console.log(err))
+            .catch(err => {
+                alert("Got error")
+                console.log(err)
+            })
     }
 
     useEffect(() => {
