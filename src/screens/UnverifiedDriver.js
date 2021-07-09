@@ -5,7 +5,7 @@ import "./UnverifiedDriver.css"
 import axios from "axios";
 import LoadingBar from 'react-top-loading-bar'
 import { toast } from "react-toastify";
-import {useHistory} from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 const UnverifiedDriver = (params) => {
     console.log("im in unverified")
@@ -21,6 +21,10 @@ const UnverifiedDriver = (params) => {
     const [userEmail, setUserEmail] = useState("")
     const [registrationDate, setRegistrationDate] = useState("")
 
+    const [primaryDocument, setPrimaryDocument] = useState([])
+    const [secondaryDocument, setSecondaryDocument] = useState([])
+    const [additionalDocument, setAdditionalDocument] = useState([])
+
     const [drivingLicence, setDrivingLicence] = useState("")
     const [passport, setPassport] = useState("")
     const [australianCitizenship, setAustralianCitizenship] = useState("")
@@ -31,14 +35,16 @@ const UnverifiedDriver = (params) => {
     const [residenceProof, setResidenceProof] = useState("")
     const [driivngHistory, setDrivingHistory] = useState("")
 
-    const URL="https://dlivr.herokuapp.com";
+    const URL = "https://dlivr.herokuapp.com";
 
     const getUnverifiedDriver = () => {
         axios({
             method: "GET",
-            url: URL+`/admin/driver/${id}`,
-            headers:{ "Content-Type": "application/json",
-            "Authorization":"Bearer "+ JSON.parse(localStorage.getItem("token"))}
+            url: URL + `/admin/driver/${id}`,
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + JSON.parse(localStorage.getItem("token"))
+            }
 
         })
             .then(res => {
@@ -52,6 +58,11 @@ const UnverifiedDriver = (params) => {
                 setUserRating("4.5")
                 var registrationDate = new Date(baseRoot.createdAt)
                 setRegistrationDate(`${registrationDate.getDate()}.${registrationDate.getMonth() + 1}.${registrationDate.getFullYear()}`)
+
+                console.log(baseRoot.primary_document[0].driving_license)
+                setPrimaryDocument(baseRoot.primary_document)
+                setSecondaryDocument(baseRoot.secondary_document)
+                setAdditionalDocument(baseRoot.additionalDocument)
 
                 setDrivingLicence(`https://storage.googleapis.com/dlivr-55a47.appspot.com/${baseRoot.primary_document[0].driving_license}`)
                 setPassport(`https://storage.googleapis.com/dlivr-55a47.appspot.com/${baseRoot.primary_document[0].passport}`)
@@ -70,25 +81,31 @@ const UnverifiedDriver = (params) => {
             })
     }
 
-    const verifyDriver = async ()=>{
+    const verifyDriver = async () => {
         axios({
-            method:"PUT",
-            url:URL+`/admin/verifyDriver/${id}`,
-            headers:{ "Content-Type": "application/json",
-            "Authorization":"Bearer "+ JSON.parse(localStorage.getItem("token"))}
+            method: "PUT",
+            url: URL + `/admin/verifyDriver/${id}`,
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + JSON.parse(localStorage.getItem("token"))
+            }
         })
-        .then(res=>{
-            // console.log(res.data.message)
-            toast.success(res.data.message);
-            history.push("/userAccount");
+            .then(res => {
+                // console.log(res.data.message)
+                toast.success(res.data.message);
+                history.push("/userAccount");
 
-        })
-        .catch(err=>{
-            toast.info(err.response.data.message)
-            console.log(err.response.data.message)
-        })
+            })
+            .catch(err => {
+                toast.info(err.response.data.message)
+                console.log(err.response.data.message)
+            })
     }
 
+    const rejectDriver = async () => {
+        history.goBack();
+        toast.success("Driver Rejected");
+    }
     useEffect(() => {
         setProgress(50)
         getUnverifiedDriver();
@@ -135,31 +152,46 @@ const UnverifiedDriver = (params) => {
                 <div className="documents">
                     <div className="primary_documents">
                         <p className="document_heading">Primary Documents</p>
-                        <a href={drivingLicence} target="_blank" className="document">Driving Licence <i className="fas fa-file-export"></i></a>
-                        <a href={passport} target="_blank" className="document">Passport <i className="fas fa-file-export"></i></a>
+                        {primaryDocument.length > 0 ?
+                            <>
+
+                                <a href={drivingLicence} target="_blank" className="document">Driving Licence <i className="fas fa-file-export"></i></a>
+                                <a href={passport} target="_blank" className="document">Passport <i className="fas fa-file-export"></i></a>
+                            </>
+                            : "Not updated yet"
+                        }
                     </div>
+
                     <div className="secondary_document">
                         <p className="document_heading">Secondary Documents</p>
-                        <a href={australianCitizenship} target="_blank" className="document">Australian Citizenship<i className="fas fa-file-export"></i></a>
-                        <a href={australianVisa} target="_blank" className="document">Australian Visa <i className="fas fa-file-export"></i></a>
-                        <a href={bankCard} target="_blank" className="document">Bank Card <i className="fas fa-file-export"></i></a>
-                        <a href={federalPoliceCheck} target="_blank" className="document">Federal Police Chech <i className="fas fa-file-export"></i></a>
-                        <a href={medicare} target="_blank" className="document">Medicare <i className="fas fa-file-export"></i></a>
-                        <a href={residenceProof} target="_blank" className="document">Residence Proof <i className="fas fa-file-export"></i></a>
+                        {secondaryDocument.length > 0 ?
+                            <>
+                                <a href={australianCitizenship} target="_blank" className="document">Australian Citizenship<i className="fas fa-file-export"></i></a>
+                                <a href={australianVisa} target="_blank" className="document">Australian Visa <i className="fas fa-file-export"></i></a>
+                                <a href={bankCard} target="_blank" className="document">Bank Card <i className="fas fa-file-export"></i></a>
+                                <a href={federalPoliceCheck} target="_blank" className="document">Federal Police Chech <i className="fas fa-file-export"></i></a>
+                                <a href={medicare} target="_blank" className="document">Medicare <i className="fas fa-file-export"></i></a>
+                                <a href={residenceProof} target="_blank" className="document">Residence Proof <i className="fas fa-file-export"></i></a>
+                            </>
+                            : "Not updated yet"
+                        }
 
                     </div>
-                    {driivngHistory !== "https://storage.googleapis.com/dlivr-55a47.appspot.com/null" && 
-                    <div className="additional_document">
-                        <p className="document_heading">Addtional Documents</p>
-                        <a href={driivngHistory} target="_blank" className="document">Driving History <i className="fas fa-file-export"></i></a>
+                    {driivngHistory !== "https://storage.googleapis.com/dlivr-55a47.appspot.com/null" &&
+                        <div className="additional_document">
+                            <p className="document_heading">Addtional Documents</p>
+                            {additionalDocument.length > 0 ?
+                                <a href={driivngHistory} target="_blank" className="document">Driving History <i className="fas fa-file-export"></i></a>
+                                : "Not updated yet"
+                            }
 
-                    </div>
+                        </div>
                     }
 
                 </div>
                 <div className="customerButtons">
-                    <p className="customer_btn" onClick={()=> verifyDriver()}>Approve</p>
-                    <p className="customer_btn">Reject</p>
+                    <p className="customer_btn" onClick={() => verifyDriver()}>Approve</p>
+                    <p className="customer_btn" onClick={()=>{rejectDriver()}}>Reject</p>
                     <p className="customer_btn">Contact Via Nail</p>
                 </div>
             </div>

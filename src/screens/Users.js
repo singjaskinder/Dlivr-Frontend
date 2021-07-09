@@ -4,8 +4,9 @@ import "./Users.css"
 import axios from "axios";
 import LoadingBar from 'react-top-loading-bar'
 import { toast } from "react-toastify";
+import {Link} from "react-router-dom"
 
-const URL="https://dlivr.herokuapp.com";
+const URL = "https://dlivr.herokuapp.com";
 
 const Users = (params) => {
     const [progress, setProgress] = useState(0)
@@ -37,9 +38,11 @@ const Users = (params) => {
     const getUser = () => {
         axios({
             method: "GET",
-            url: URL+`/admin/user/${id}`,
-            headers:{ "Content-Type": "application/json",
-            "Authorization":"Bearer "+ JSON.parse(localStorage.getItem("token"))}
+            url: URL + `/admin/user/${id}`,
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + JSON.parse(localStorage.getItem("token"))
+            }
 
         })
             .then(res => {
@@ -63,13 +66,19 @@ const Users = (params) => {
     const getJobs = () => {
         axios({
             method: "GET",
-            url: URL+`/admin/jobs?id=${id}`
+            url: URL + `/admin/getUserJobs/${id}`,
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + JSON.parse(localStorage.getItem("token"))
+            }
         })
             .then(res => {
-                setUserRecentJobs(res.data.data[0].alljobs)
+                setUserRecentJobs(res.data.data)
+                // console.log(res.data.data)
             })
             .catch(err => {
                 console.log(err)
+                alert("got error")
                 console.log(err.response.data.message)
             })
     }
@@ -77,9 +86,11 @@ const Users = (params) => {
     const banUser = () => {
         axios({
             method: "PUT",
-            url: URL+`/admin/banUser/${id}`,
-            headers:{ "Content-Type": "application/json",
-            "Authorization":"Bearer "+ JSON.parse(localStorage.getItem("token"))}
+            url: URL + `/admin/banUser/${id}`,
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + JSON.parse(localStorage.getItem("token"))
+            }
         })
             .then(res => {
                 toast.success(res.data.message);
@@ -94,9 +105,11 @@ const Users = (params) => {
     const unBanUser = () => {
         axios({
             method: "PUT",
-            url: URL+`/admin/unbanUser/${id}`,
-            headers:{ "Content-Type": "application/json",
-            "Authorization":"Bearer "+ JSON.parse(localStorage.getItem("token"))}
+            url: URL + `/admin/unbanUser/${id}`,
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + JSON.parse(localStorage.getItem("token"))
+            }
         })
             .then(res => {
                 toast.success(res.data.message);
@@ -115,17 +128,17 @@ const Users = (params) => {
         if (userJobs) {
             getJobs()
             setProgress(100)
-            
+
         }
-        if(userServices){
+        if (userServices) {
             setProgress(100)
         }
     }, [userJobs])
 
     return (
         <>
-        <LoadingBar color="#6f2da8" height={3} loaderSpeed={600} progress={progress} onLoaderFinished={() => setProgress(0)} />
-        
+            <LoadingBar color="#6f2da8" height={3} loaderSpeed={600} progress={progress} onLoaderFinished={() => setProgress(0)} />
+
             <ScreenHeading heading="Customer Details" />
             <div className="userDataDiv">
                 <div className="userData">
@@ -140,7 +153,7 @@ const Users = (params) => {
                         </div>
                         <div className="userDataRow">
                             <i className="fas fa-map-marker-alt"></i>
-                            <p>{userAddress.length > 0 ? userAddress[0].city + ", " + userAddress[0].country + " - " + userAddress[0].postal_code : "loading.."}</p>
+                            <p>{userAddress.length > 0 ? userAddress[0].city + ", " + userAddress[0].country + " - " + userAddress[0].postal_code : "not updated"}</p>
                         </div>
                         <div className="userDataRow">
                             <i class="fas fa-star"></i>
@@ -155,14 +168,14 @@ const Users = (params) => {
                         </div>
                         <div className="userDataRow">
                             <i className="fas fa-globe-asia"></i>
-                            <p>{userAddress.length > 0 ? userAddress[0].country : "loading..."}</p>
+                            <p>{userAddress.length > 0 ? userAddress[0].country : "not updated"}</p>
                         </div>
 
                     </div>
                 </div>
                 <div className="customerButtons">
-                    <p onClick={()=> banUser()} className="customer_btn">Ban</p>
-                    <p  onClick={()=> unBanUser()} className="customer_btn">Revoke</p>
+                    <p onClick={() => banUser()} className="customer_btn">Ban</p>
+                    <p onClick={() => unBanUser()} className="customer_btn">Revoke</p>
                     <p className="customer_btn">Contact Via Nail</p>
                 </div>
             </div>
@@ -180,18 +193,20 @@ const Users = (params) => {
                         <p className="customerStats_rowHeadingElement">Driver</p>
                         <p className="customerStats_rowHeadingElement">Status</p>
                     </div>
-                    {userRecentJobs.map((item, index) => {
+                    {userRecentJobs.length > 0 ? userRecentJobs.map((item, index) => {
                         return (
-                            <div key={index} className="customerStats_rowBody">
-                                <p className="customerStats_rowBodyElement">{item._id}</p>
-                                <p className="customerStats_rowBodyElement">{item.package_title}</p>
-                                <p className="customerStats_rowBodyElement">00-00-0000</p>
-                                <p className="customerStats_rowBodyElement">{item.pick_address}</p>
-                                <p className="customerStats_rowBodyElement">{item.driverId ? item.driverId : "Not assigned"}</p>
-                                <p className="customerStats_rowBodyElement">{item.status}</p>
-                            </div>
+                            <Link to={`/tracking/${item._id}`}>
+                                <div key={index} className="customerStats_rowBody">
+                                    <p className="customerStats_rowBodyElement">{item._id}</p>
+                                    <p className="customerStats_rowBodyElement">{item.package_title}</p>
+                                    <p className="customerStats_rowBodyElement">00-00-0000</p>
+                                    <p className="customerStats_rowBodyElement">{item.pick_address}</p>
+                                    <p className="customerStats_rowBodyElement">{item.driverId ? item.driverId : "Not assigned"}</p>
+                                    <p className="customerStats_rowBodyElement">{item.status}</p>
+                                </div>
+                            </Link>
                         )
-                    })}
+                    }): "No Jobs posted yet"}
                 </div>}
             </div>
         </>
