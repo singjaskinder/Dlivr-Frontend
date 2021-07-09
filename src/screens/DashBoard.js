@@ -8,8 +8,6 @@ import { Row, Col } from "react-bootstrap";
 import axios from "axios";
 import { BASE_URL } from "../utils/Links";
 
-const URL = "https://dlivr.herokuapp.com";
-
 const TotalCountTab = ({ icon, text, count }) => {
   return (
     <div
@@ -27,6 +25,7 @@ const Dashboard = () => {
   const [userCount, setUserCount] = useState(0);
   const [driverCount, setDriverCount] = useState(0);
   const [jobCount, setJobCount] = useState(0);
+
   useEffect(() => {
     const calculateUsersCount = async () => {
       const userCount = await axios.get(`${BASE_URL}/admin/users-count`, {
@@ -53,28 +52,35 @@ const Dashboard = () => {
     };
     calculateUsersCount();
   }, []);
+
   const [data, setData] = useState([]);
   const [period, setPeriod] = useState("week");
+
   var customData = {
     id: "Jobs",
     color: "hsl(290, 70%, 50%)",
   };
   useEffect(() => {
     const fetchData = async (duration) => {
-      const res = await axios.get(URL + `/admin/stats/${duration}`);
-
+      const res = await axios.get(`${BASE_URL}/admin/jobs/${duration}`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + JSON.parse(localStorage.getItem("token")),
+        },
+      });
+      console.log(res);
       let jobStats = res.data.data[0].foundStats.map((job) => {
-        job.x = job.date.substring(0, 10);
+        job.x = job.date.substring(5, 10);
         job.y = job.total_jobs;
         return job;
       });
       jobStats.reverse();
       customData.data = jobStats;
-      console.log([customData]);
+      console.log(jobStats);
       setData([customData]);
     };
     const fetchYearData = async () => {
-      const res = await axios.get(URL + "/admin/stats/lastYearJobs");
+      const res = await axios.get(`${BASE_URL}/admin/jobs/week`);
       var months = [
         "January",
         "February",
@@ -106,8 +112,8 @@ const Dashboard = () => {
     period === "year"
       ? fetchYearData()
       : period === "month"
-      ? fetchData("lastMonthJobs")
-      : fetchData("lastWeekJobs");
+      ? fetchData("month")
+      : fetchData("week");
   }, [period]);
 
   return (

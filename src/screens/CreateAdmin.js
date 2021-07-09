@@ -39,11 +39,13 @@ const CreateAdmin = () => {
           },
         })
         .then((res) => {
+          console.log("line 42");
           setEmail("");
           setName("");
           setPassword("");
           setPhone("");
           setLocation("");
+          console.log("line 48");
           toast.success(res.data.message);
         })
         .catch((res) => {
@@ -79,12 +81,14 @@ const CreateAdmin = () => {
                   type="text"
                   class="form-control"
                   id="exampleFormControlInput1"
+                  value={name}
                   placeholder="Name"
                   onChange={(e) => setName(e.target.value)}
                 />
               </div>
               <div className="g-2 col-md-6">
                 <input
+                  value={phone}
                   type="number"
                   class="form-control"
                   id="exampleFormControlInput1"
@@ -95,6 +99,7 @@ const CreateAdmin = () => {
               <div className="g-2 col-md-6">
                 <input
                   type="email"
+                  value={email}
                   class="form-control"
                   id="exampleFormControlInput1"
                   placeholder="Email"
@@ -106,6 +111,7 @@ const CreateAdmin = () => {
                   type="password"
                   class="form-control"
                   id="exampleFormControlInput1"
+                  value={password}
                   placeholder="Password"
                   onChange={(e) => setPassword(e.target.value)}
                 />
@@ -115,18 +121,12 @@ const CreateAdmin = () => {
                   type="text"
                   class="form-control"
                   id="exampleFormControlInput1"
+                  value={Location}
                   placeholder="Location"
                   onChange={(e) => setLocation(e.target.value)}
                 />
               </div>
-              <div className="g-2">
-                <label htmlFor="Position">Position</label>
-                <select className="form-select " name="" id="">
-                  <option value="">Manager</option>
-                  <option value="">Admin</option>
-                  <option value="">Staff</option>
-                </select>
-              </div>
+
               <button
                 onClick={submitHandler}
                 className="mt-5 btn  btn-sm btn-primary btn-block bg-button"

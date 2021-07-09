@@ -20,6 +20,10 @@ function Login({ Login, error }) {
       .then((response) => {
         toast.success(response.data.message);
         localStorage.setItem(
+          "name",
+          JSON.stringify(response.data.data[0].name)
+        );
+        localStorage.setItem(
           "token",
           JSON.stringify(response.data.data[0].token)
         );

@@ -36,7 +36,7 @@ const DashboardBarGraph = ({ height, stats }) => {
           tickSize: 10,
           tickPadding: 5,
           tickRotation: 0,
-          tickValues: 2,
+          tickValues: 5,
           legend: "",
           legendOffset: -40,
           legendPosition: "middle",
