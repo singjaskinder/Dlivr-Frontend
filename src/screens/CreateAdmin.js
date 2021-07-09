@@ -2,63 +2,63 @@ import React from "react";
 import "./CreateAdmin.css";
 import { geolocated, geoPropTypes } from "react-geolocated";
 import { useEffect } from "react";
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 import { useState } from "react";
 import axios from "axios";
+import { BASE_URL } from "../utils/Links";
 
 const CreateAdmin = () => {
-
-
   useEffect(() => {
-    navigator.geolocation.getCurrentPosition(function(position) {
-     
-      setLatitude(position.coords.latitude)
-      setLongitude(position.coords.longitude)
-    });}, [])
+    navigator.geolocation.getCurrentPosition(function (position) {
+      setLatitude(position.coords.latitude);
+      setLongitude(position.coords.longitude);
+    });
+  }, []);
 
-  const [email, setEmail] = useState("")
-  const [name, setName] = useState("")
-  const [password, setPassword] = useState("")
-  const [Location, setLocation] = useState("")
-  const [phone, setPhone] = useState("")
-    const [longitude, setLongitude] = useState("")
-    const [latitude, setLatitude] = useState("")
+  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
+  const [password, setPassword] = useState("");
+  const [Location, setLocation] = useState("");
+  const [phone, setPhone] = useState("");
+  const [longitude, setLongitude] = useState("");
+  const [latitude, setLatitude] = useState("");
 
-  const submitHandler=async(e)=>{
-    e.preventDefault()
+  const submitHandler = async (e) => {
+    e.preventDefault();
     try {
-     axios.post("/admin/create", {
-        email, phone, name, password, address:Location, location:{
-          type: "Point",
-           coordinates:[
-             longitude,
-             latitude
-           ]
-        }
-      }).then(res=>{
-        console.log(res)
-        setEmail("")
-        setName("")
-        setPassword("")
-        setPhone("")
-        setLocation("")
-        toast.success(res.data.message)
-      }).catch((res)=>{
-        setEmail("")
-        setName("")
-        setPassword("")
-        setPhone("")
-        setLocation("")
-        console.log(res)
-        toast.danger(res.data.message)
-      })
+      axios
+        .post(`${BASE_URL}/admin/create`, {
+          email,
+          phone,
+          name,
+          password,
+          address: Location,
+          location: {
+            type: "Point",
+            coordinates: [longitude, latitude],
+          },
+        })
+        .then((res) => {
+          setEmail("");
+          setName("");
+          setPassword("");
+          setPhone("");
+          setLocation("");
+          toast.success(res.data.message);
+        })
+        .catch((res) => {
+          setEmail("");
+          setName("");
+          setPassword("");
+          setPhone("");
+          setLocation("");
 
+          toast.danger(res.data.message);
+        });
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
-
-
+  };
 
   return (
     <div className="p-3">
@@ -71,7 +71,7 @@ const CreateAdmin = () => {
             src="https://images.unsplash.com/photo-1577975882846-431adc8c2009?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"
             alt=""
           />
-          
+
           <form action="">
             <div className="row">
               <div className="g-2 col-md-6 ">
@@ -80,7 +80,7 @@ const CreateAdmin = () => {
                   class="form-control"
                   id="exampleFormControlInput1"
                   placeholder="Name"
-                  onChange={e=> setName(e.target.value)}
+                  onChange={(e) => setName(e.target.value)}
                 />
               </div>
               <div className="g-2 col-md-6">
@@ -89,8 +89,7 @@ const CreateAdmin = () => {
                   class="form-control"
                   id="exampleFormControlInput1"
                   placeholder="Phone"
-                  onChange={e=> setPhone(e.target.value)}
-
+                  onChange={(e) => setPhone(e.target.value)}
                 />
               </div>
               <div className="g-2 col-md-6">
@@ -99,8 +98,7 @@ const CreateAdmin = () => {
                   class="form-control"
                   id="exampleFormControlInput1"
                   placeholder="Email"
-                  onChange={e=> setEmail(e.target.value)}
-
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
               <div className="g-2 col-md-6">
@@ -109,8 +107,7 @@ const CreateAdmin = () => {
                   class="form-control"
                   id="exampleFormControlInput1"
                   placeholder="Password"
-                  onChange={e=> setPassword(e.target.value)}
-
+                  onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
               <div className="g-2 col-md-12 ">
@@ -119,8 +116,7 @@ const CreateAdmin = () => {
                   class="form-control"
                   id="exampleFormControlInput1"
                   placeholder="Location"
-                  onChange={e=> setLocation(e.target.value)}
-
+                  onChange={(e) => setLocation(e.target.value)}
                 />
               </div>
               <div className="g-2">
@@ -131,7 +127,12 @@ const CreateAdmin = () => {
                   <option value="">Staff</option>
                 </select>
               </div>
-              <button onClick={submitHandler} className="mt-5 btn  btn-sm btn-primary btn-block bg-button">Submit</button>
+              <button
+                onClick={submitHandler}
+                className="mt-5 btn  btn-sm btn-primary btn-block bg-button"
+              >
+                Submit
+              </button>
             </div>
           </form>
         </div>
