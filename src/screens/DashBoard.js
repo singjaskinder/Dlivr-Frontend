@@ -6,15 +6,11 @@ import "./Dashboard.css";
 import DashboardBarGraph from "../components/DashboardBarGraph";
 import { Row, Col } from "react-bootstrap";
 import axios from "axios";
+import { BASE_URL } from "../utils/Links";
 
-const URL="https://dlivr.herokuapp.com";
-
-
-
+const URL = "https://dlivr.herokuapp.com";
 
 const TotalCountTab = ({ icon, text, count }) => {
-
-  
   return (
     <div
       className="count-tab custom-container "
@@ -28,36 +24,35 @@ const TotalCountTab = ({ icon, text, count }) => {
 };
 
 const Dashboard = () => {
-
-  const [userCount, setUserCount] = useState(0)
-const [driverCount, setDriverCount] = useState(0)
-const [jobCount, setJobCount] = useState(0)
-useEffect(() => {
- const calculateUsersCount= async ()=>{
-  const userCount= await axios.get("/admin/users-count", {
-    headers:{
-      "Content-Type":"application/json",
-      "Authorization":"Bearer "+ JSON.parse(localStorage.getItem("token"))
-    }
-  })
-  setUserCount(userCount.data.data)
-  const driverCount= await axios.get("/admin/drivers-count", {
-    headers:{
-      "Content-Type":"application/json",
-      "Authorization":"Bearer "+ JSON.parse(localStorage.getItem("token"))
-    }
-  })
-  setDriverCount(driverCount.data.data)
-  const jobCount= await axios.get("/admin/users-count", {
-    headers:{
-      "Content-Type":"application/json",
-      "Authorization":"Bearer "+ JSON.parse(localStorage.getItem("token"))
-    }
-  })
-  setJobCount(jobCount.data.data)
-}
-calculateUsersCount()
-}, [])
+  const [userCount, setUserCount] = useState(0);
+  const [driverCount, setDriverCount] = useState(0);
+  const [jobCount, setJobCount] = useState(0);
+  useEffect(() => {
+    const calculateUsersCount = async () => {
+      const userCount = await axios.get(`${BASE_URL}/admin/users-count`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + JSON.parse(localStorage.getItem("token")),
+        },
+      });
+      setUserCount(userCount.data.data);
+      const driverCount = await axios.get(`${BASE_URL}/admin/drivers-count`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + JSON.parse(localStorage.getItem("token")),
+        },
+      });
+      setDriverCount(driverCount.data.data);
+      const jobCount = await axios.get(`${BASE_URL}/admin/users-count`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + JSON.parse(localStorage.getItem("token")),
+        },
+      });
+      setJobCount(jobCount.data.data);
+    };
+    calculateUsersCount();
+  }, []);
   const [data, setData] = useState([]);
   const [period, setPeriod] = useState("week");
   var customData = {
@@ -66,20 +61,20 @@ calculateUsersCount()
   };
   useEffect(() => {
     const fetchData = async (duration) => {
-      const res = await axios.get(URL+`/admin/stats/${duration}`);
+      const res = await axios.get(URL + `/admin/stats/${duration}`);
 
       let jobStats = res.data.data[0].foundStats.map((job) => {
         job.x = job.date.substring(0, 10);
         job.y = job.total_jobs;
         return job;
       });
-      jobStats.reverse()
+      jobStats.reverse();
       customData.data = jobStats;
       console.log([customData]);
       setData([customData]);
     };
     const fetchYearData = async () => {
-      const res = await axios.get(URL+"/admin/stats/lastYearJobs");
+      const res = await axios.get(URL + "/admin/stats/lastYearJobs");
       var months = [
         "January",
         "February",
@@ -101,7 +96,7 @@ calculateUsersCount()
         job.y = job.total_jobs;
         return job;
       });
-      jobStats.reverse()
+      jobStats.reverse();
       customData.data = jobStats;
       console.log([customData]);
       setData([customData]);
@@ -119,7 +114,11 @@ calculateUsersCount()
     <div className="" style={{ width: "100%", backgroundColor: "#B49FD7" }}>
       <div className="dashboard-tabs">
         <TotalCountTab icon={<WorkIcon />} text="Total Jobs" count={jobCount} />
-        <TotalCountTab icon={<PeopleIcon />} text="Total Users" count={userCount} />
+        <TotalCountTab
+          icon={<PeopleIcon />}
+          text="Total Users"
+          count={userCount}
+        />
         <TotalCountTab
           icon={<DriveEtaIcon />}
           text="Total Drivers"
