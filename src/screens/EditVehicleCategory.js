@@ -99,7 +99,7 @@ const EditVehicleCategory = () => {
                 })
                 .catch(err => {
                     setProgress(100)
-                    console.log(err.response.data)
+                    console.log(err)
                     toast.error("error")
                 });
             setProgress(100)
