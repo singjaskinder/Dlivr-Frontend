@@ -9,7 +9,13 @@ import Job from "./screens/Order";
 import Vehicles from "./screens/Vehicles";
 import Offer from "./screens/Offer";
 import VehiclesData from "./screens/VehicleData";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  useLocation,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
 import Notification from "./screens/Notification";
 import CreateAdmin from "./screens/CreateAdmin";
 import SupportListing from "./screens/SupportListing";
@@ -22,6 +28,19 @@ import Drivers from "./screens/Drivers";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+const ProtectedRoute = (path, Component) => {
+  console.log(path, "req CAME");
+  return (
+    <>
+      {!localStorage.getItem("token") ? (
+        <Redirect to={{ pathname: "/login" }} />
+      ) : (
+        <Route path={path} component={Component} />
+      )}
+    </>
+  );
+};
+
 function App() {
   return (
     <div className="App">
@@ -33,34 +52,139 @@ function App() {
         <Sidebar />
         <div className="main_div">
           <Switch>
-            <Route exact path="/dashboard" component={DashBoard} />
-            <Route exact path="/adminAccount" component={AdminDetails} />
-            <Route exact path="/adminAccount/create" component={CreateAdmin} />
+            <Route
+              exact
+              path="/dashboard"
+              render={() => (
+                <ProtectedRoute path={"/dashboard"} component={DashBoard} />
+              )}
+            />
+            <Route
+              exact
+              path="/adminAccount"
+              render={() => (
+                <ProtectedRoute
+                  path={"/adminAccount"}
+                  component={AdminDetails}
+                />
+              )}
+            />
+            <Route
+              exact
+              path="/adminAccount/create"
+              render={() => (
+                <ProtectedRoute
+                  path={"/adminAccount/create"}
+                  component={CreateAdmin}
+                />
+              )}
+            />
             <Route
               exact
               path="/adminAccount/:Adminid"
-              component={AdminAccount}
+              render={() => (
+                <ProtectedRoute
+                  path={"/adminAccount/:Adminid"}
+                  component={AdminAccount}
+                />
+              )}
             />
-            <Route exact path="/userAccount" component={UserAccount} />
+            <Route
+              exact
+              path="/userAccount"
+              render={() => (
+                <ProtectedRoute path={"/userAccount"} component={UserAccount} />
+              )}
+            />
             <Route
               exact
               path="/userAccount/:user/:id"
-              component={UserDetails}
+              render={() => (
+                <ProtectedRoute
+                  path={"/userAccount/:user/:id"}
+                  component={UserDetails}
+                />
+              )}
             />
-            <Route exact path="/tracking" component={Tracking} />
-            <Route exact path="/tracking/:job" component={Job} />
-            <Route exact path="/vehicles" component={Vehicles} />
-            <Route exact path="/vehicles/:id" component={VehiclesData} />
-            <Route exact path="/support" component={SupportListing} />
+            <Route
+              exact
+              path="/tracking"
+              render={() => (
+                <ProtectedRoute path={"/tracking"} component={Tracking} />
+              )}
+            />
+            <Route
+              exact
+              path="/tracking/:job"
+              render={() => (
+                <ProtectedRoute path={"/tracking/:job"} component={Job} />
+              )}
+            />
+            <Route
+              exact
+              path="/vehicles"
+              render={() => (
+                <ProtectedRoute path={"/vehicles"} component={Vehicles} />
+              )}
+            />
+            <Route
+              exact
+              path="/vehicles/:id"
+              render={() => (
+                <ProtectedRoute
+                  path={"/vehicles/:id"}
+                  component={VehiclesData}
+                />
+              )}
+            />
+            <Route
+              exact
+              path="/support"
+              render={() => (
+                <ProtectedRoute path={"/support"} component={SupportListing} />
+              )}
+            />
             <Route
               exact
               path="/support/conversation"
-              component={SupportConversation}
+              render={() => (
+                <ProtectedRoute
+                  path={"/support/conversation"}
+                  component={SupportConversation}
+                />
+              )}
             />
-            <Route exact path="/offer" component={Offer} />
-            <Route exact path="/notifications" component={Notification} />
-            <Route exact path="/driver" component={DriverDetails} />
-            <Route exact path="/driver/:id" component={Drivers} />
+            <Route
+              exact
+              path="/offer"
+              render={() => (
+                <ProtectedRoute path={"/offer"} component={Offer} />
+              )}
+            />
+            <Route
+              exact
+              path="/notifications"
+              render={() => (
+                <ProtectedRoute
+                  path={"/notifications"}
+                  component={Notification}
+                />
+              )}
+            />
+            <Route
+              exact
+              path="/driver"
+              render={() => (
+                <ProtectedRoute path={"/driver"} component={DriverDetails} />
+              )}
+            />
+            <Route
+              exact
+              path="/driver/:id"
+              render={() => (
+                <ProtectedRoute path={"/driver/:id"} component={Drivers} />
+              )}
+            />
           </Switch>
         </div>
       </Router>

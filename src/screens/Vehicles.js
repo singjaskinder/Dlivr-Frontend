@@ -93,7 +93,7 @@ function Vehicles() {
             </div>
           </div>
           <div className="filters">
-            <div className="filter">
+            {/* <div className="filter">
               <p className="filter_heading">Type</p>
               <i className="fas fa-chevron-down"></i>
             </div>
@@ -103,7 +103,7 @@ function Vehicles() {
             </div>
             <div className="reset">
               <p className="filter_heading">Reset</p>
-            </div>
+            </div> */}
             <div className="search-by-specific-field-con">
               <select
                 className="search-by-specific-field"

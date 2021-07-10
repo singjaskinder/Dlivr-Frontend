@@ -27,8 +27,8 @@ const DashboardBarGraph = ({ height, stats }) => {
           tickSize: 10,
           tickPadding: 6,
           // tickRotation: -42,
-          legend: "",
-          legendOffset: -23,
+          legend: "Dates",
+          legendOffset: 30,
           legendPosition: "middle",
         }}
         axisLeft={{
@@ -37,7 +37,7 @@ const DashboardBarGraph = ({ height, stats }) => {
           tickPadding: 5,
           tickRotation: 0,
           tickValues: 5,
-          legend: "",
+          legend: "Jobs",
           legendOffset: -40,
           legendPosition: "middle",
         }}
