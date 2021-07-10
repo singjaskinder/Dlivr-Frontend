@@ -6,13 +6,14 @@ import { useEffect } from "react";
 import { useState } from "react";
 
 function Sidebar() {
-  const [name, setName] = useState("");
+  const [name, setName] = useState(JSON.parse(localStorage.getItem("name")));
   const history = useHistory();
-  useEffect(() => {
-    console.log(history);
-    setName(JSON.parse(localStorage.getItem("name")));
-    console.log(JSON.parse(localStorage.getItem("name")));
-  }, []);
+  // useEffect(() => {
+  //   console.log("hii")
+  //   console.log(history);
+  //   setName(JSON.parse(localStorage.getItem("name")));
+  //   console.log(JSON.parse(localStorage.getItem("name")));
+  // },[]);
   return (
     <>
       <div className="sidebar_main_div">

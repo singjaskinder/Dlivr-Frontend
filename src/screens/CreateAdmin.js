@@ -129,7 +129,7 @@ const CreateAdmin = () => {
 
               <button
                 onClick={submitHandler}
-                className="mt-5 btn  btn-sm btn-primary btn-block bg-button"
+                className="mt-5 btn  btn-sm btn-primary btn-block bg-button add-admin-submitBtn"
               >
                 Submit
               </button>

@@ -28,6 +28,8 @@ import Drivers from "./screens/Drivers";
 import Dashboard from "./screens/DashBoard";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Categories from "./screens/Categories";
+import EditVehicleCategory from "./screens/EditVehicleCategory";
 
 function ProtectedRoute({ path, component: Component, ...rest }) {
   return (
@@ -84,6 +86,9 @@ function App() {
             <ProtectedRoute exact path="/tracking" component={Tracking} />
             <ProtectedRoute exact path="/tracking/:job" component={Job} />
             <ProtectedRoute exact path="/vehicles" component={Vehicles} />
+
+            <ProtectedRoute exact path="/vehicles/categories" component={Categories} />
+            <ProtectedRoute exact path="/vehicles/categories/:id" component={EditVehicleCategory} />
             <ProtectedRoute
               exact
               path="/vehicles/:id"
