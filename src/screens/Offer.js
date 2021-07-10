@@ -6,26 +6,46 @@ import ScreenHeading from "../components/ScreenHeading";
 import { toast } from "react-toastify";
 import { BASE_URL } from "../utils/Links";
 
-const URL = "https://dlivr.herokuapp.com";
-
 function Pastoffer(prop) {
+  const deleteOffer = async (id) => {
+    axios
+      .delete(`${BASE_URL}/admin/offer/${id}`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + JSON.parse(localStorage.getItem("token")),
+        },
+      })
+      .then(() => {
+        toast.success("Offer Deleted Successfully");
+      })
+      .catch((e) => toast.warn(e.message));
+  };
+
   return (
     <div className="offers">
       <span>{prop.offerCode}</span>
       <span>{prop.description}</span>
       <span>{prop.expiration}</span>
       <span>{prop.users}</span>
+      <span
+        style={{ cursor: "pointer" }}
+        onClick={() => {
+          deleteOffer(prop.id);
+        }}
+      >
+        <i class="fas fa-trash"></i>
+      </span>
     </div>
   );
 }
 
 function Offer() {
   const [Offers, setOffer] = useState([]);
-  const [description, setdescription] = useState();
-  const [offValue, setoffValue] = useState();
-  const [offerCode, setofferCode] = useState();
-  const [expiration, setexpiration] = useState();
-  const [message, setMessage] = useState();
+  const [description, setdescription] = useState("");
+  const [offValue, setoffValue] = useState("");
+  const [offerCode, setofferCode] = useState("");
+  const [expiration, setexpiration] = useState("");
+  const [message, setMessage] = useState("");
 
   const GetOffer = async () => {
     axios
@@ -44,6 +64,16 @@ function Offer() {
 
   const postOffer = async (e) => {
     e.preventDefault();
+
+    if (
+      description.length == 0 ||
+      offValue.length == 0 ||
+      offerCode.length == 0 ||
+      expiration.length == 0
+    ) {
+      return toast.error("All fields are required");
+    }
+
     await axios
       .post(
         `${BASE_URL}/admin/offer`,
@@ -69,7 +99,6 @@ function Offer() {
         toast.success(res.data.message);
       })
       .catch((err) => {
-        alert("Got error");
         console.log(err);
       });
   };
@@ -143,12 +172,15 @@ function Offer() {
             <span>Description</span>
             <span>Expiration</span>
             <span>Users</span>
+            <span>Actions</span>
           </div>
           <div className="list">
             {Offers.map((offer, index) => {
+              console.log(offer._id);
               return (
                 <div>
                   <Pastoffer
+                    id={offer._id}
                     key={offer._id}
                     offerCode={offer.offerCode}
                     description={offer.description}

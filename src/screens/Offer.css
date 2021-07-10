@@ -1,115 +1,120 @@
-*{
-    margin: 0;
-    padding: 0;
+* {
+  margin: 0;
+  padding: 0;
 }
-.offer{
-    width: 80vw;
-    display: block;
-    overflow: hidden;
+.offer {
+  width: 80vw;
+  display: block;
+  overflow: hidden;
+}
+.offer .form {
+  display: flex;
+  flex-wrap: wrap;
+  background-color: white;
+  padding: 10px;
+  padding-right: 20vw;
+  border-radius: 10px;
+}
 
+.offer .form label {
+  color: #9933ff;
+  width: 40%;
+  margin-right: 5%;
 }
-.offer .form{
-    display: flex;
-    flex-wrap: wrap;
-    background-color: white;
-    padding: 10px;
-    padding-right: 20vw;
-    border-radius: 10px;
+.offer .form label:first-child {
+  width: 100%;
+  font-size: 3vh;
+  font-weight: 600;
+  font-style: italic;
+  text-align: center;
 }
-
-.offer .form label{
-    color:#9933ff;
-    width: 40%;
-    margin-right:5%;
+.offer .form .message {
+  width: 100%;
+  padding: auto;
+  font-size: 2vh;
+  font-style: italic;
+  text-align: center;
+  color: red;
 }
-.offer .form label:first-child{
-    width:100%;
-    font-size: 3vh;
-    font-weight: 600;
-    font-style: italic;
-    text-align: center;
+.offer .form .a {
+  width: 40%;
+  margin-right: 5%;
 }
-.offer .form .message{
-    width:100%;
-    padding: auto;
-    font-size: 2vh;
-    font-style: italic;
-    text-align: center;
-    color:red;
+.offer .form .bttn {
+  color: #9933ff;
+  border-color: #9933ff;
+  margin-top: 25px;
+  width: 40%;
+  height: 37px;
+  margin-left: 0;
+  margin-right: 5%;
 }
-.offer .form .a{
-    width: 40%;
-    margin-right:5%;
+.offer .form .bttns {
+  color: white;
+  background-color: #9933ff;
+  border-color: #9933ff;
+  margin-top: 25px;
+  margin-left: 0;
+  margin-right: 5%;
+  width: 40%;
+  height: 37px;
 }
-.offer .form .bttn{
-    color: #9933ff;
-    border-color: #9933ff;
-    margin-top:25px;
-    width: 40%;
-    height: 37px;
-    margin-left:0;
-    margin-right:5% ;
+.pastoffer {
+  display: block;
 }
-.offer .form .bttns{
-    color: white;
-    background-color:#9933ff ;
-    border-color: #9933ff;
-    margin-top:25px;
-    margin-left:0;
-    margin-right:5% ;
-    width: 40%;
-    height: 37px;
-}
-.pastoffer{
-    display: block;
-
-}
-.list{
-    overflow-y: scroll;
-    height: 25vh;
-    border-radius: 5px;
+.list {
+  overflow-y: scroll;
+  height: 25vh;
+  border-radius: 5px;
 }
 .list::-webkit-scrollbar {
-    display: none;
+  display: none;
 }
 
 /* Hide scrollbar for IE, Edge and Firefox */
 .list {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
-.pastoffer .offershead span{
-    display: inline-flex;
-    flex-wrap: wrap;
-    width:25%;
-    padding-left: 2%;
-    padding-top: 1%;
-    padding-bottom: 1%;
-    background-color: white;
-    color:#9933ff ;
+.pastoffer .offershead span {
+  /* display: inline-flex; */
+  flex-wrap: wrap;
+  /* width: 25%; */
+  flex: 1;
 
+  padding-left: 2%;
+  padding-top: 1%;
+  padding-bottom: 1%;
+  background-color: white;
+  color: #9933ff;
 }
-.pastoffer .offershead{
-    background-color: white;
-    margin: 20px 0px 10px 0px;
-    padding: 0 2% 0 2%;
-    border-radius: 10px;
+.pastoffer .offershead {
+  background-color: white;
+  margin: 20px 0px 10px 0px;
+  padding: 0 2% 0 2%;
+  display: flex;
+  border-radius: 10px;
 }
-.pastoffer .offers span{
-    display: inline-flex;
-    flex-wrap: wrap;
-    width:25%;
-    padding-left: 2%;
-    padding-top: 1%;
-    padding-bottom: 1%;
-    background-color: #9933ff;
-    color:white ;
 
+.offers {
+  display: flex;
 }
-.pastoffer .offers{
-    background-color: #9933ff;
-    color:white ;
-    margin: 1px 0px 1px 0px;
-    padding: 0 2% 0 2%;
-    border-radius: 5px;
+
+.pastoffer .offers span {
+  display: inline-flex;
+  flex-wrap: wrap;
+  /* width: 25%; */
+  flex: 1;
+  padding-left: 2%;
+  padding-top: 1%;
+  padding-bottom: 1%;
+  background-color: #9933ff;
+  color: white;
+}
+.pastoffer .offers {
+  background-color: #9933ff;
+  color: white;
+  margin: 1px 0px 1px 0px;
+  padding: 0 2% 0 2%;
+  border-radius: 5px;
 }

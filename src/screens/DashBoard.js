@@ -7,7 +7,8 @@ import DashboardBarGraph from "../components/DashboardBarGraph";
 import { Row, Col } from "react-bootstrap";
 import axios from "axios";
 import { BASE_URL } from "../utils/Links";
-
+import { Spinner } from "react-bootstrap";
+import { useHistory } from "react-router-dom";
 const TotalCountTab = ({ icon, text, count }) => {
   return (
     <div
@@ -22,10 +23,12 @@ const TotalCountTab = ({ icon, text, count }) => {
 };
 
 const Dashboard = () => {
+  const history = useHistory();
   const [userCount, setUserCount] = useState(0);
   const [driverCount, setDriverCount] = useState(0);
   const [jobCount, setJobCount] = useState(0);
-
+  const [driverList, setDriverList] = useState([]);
+  const [jobList, setJobList] = useState([]);
   useEffect(() => {
     const calculateUsersCount = async () => {
       const userCount = await axios.get(`${BASE_URL}/admin/users-count`, {
@@ -51,6 +54,33 @@ const Dashboard = () => {
       setJobCount(jobCount.data.data);
     };
     calculateUsersCount();
+
+    const setListData = async () => {
+      const jobsArray = await axios.get(
+        `${BASE_URL}/admin/jobs?recordsPerPage=3`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization:
+              "Bearer " + JSON.parse(localStorage.getItem("token")),
+          },
+        }
+      );
+
+      setJobList(jobsArray.data.data[0].foundJobs);
+      const driverArray = await axios.get(
+        `${BASE_URL}/admin/drivers?recordsPerPage=3`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization:
+              "Bearer " + JSON.parse(localStorage.getItem("token")),
+          },
+        }
+      );
+      setDriverList(driverArray.data.data[0].foundDrivers);
+    };
+    setListData();
   }, []);
 
   const [data, setData] = useState([]);
@@ -68,7 +98,6 @@ const Dashboard = () => {
           Authorization: "Bearer " + JSON.parse(localStorage.getItem("token")),
         },
       });
-      console.log(res);
       let jobStats = res.data.data[0].foundStats.map((job) => {
         job.x = job.date.substring(5, 10);
         job.y = job.total_jobs;
@@ -76,7 +105,6 @@ const Dashboard = () => {
       });
       jobStats.reverse();
       customData.data = jobStats;
-      console.log(jobStats);
       setData([customData]);
     };
     const fetchYearData = async () => {
@@ -104,16 +132,13 @@ const Dashboard = () => {
       });
       jobStats.reverse();
       customData.data = jobStats;
-      console.log([customData]);
       setData([customData]);
     };
     // fetchData("lastWeekJobs");
     // fetchData("lastMonthJobs");
-    period === "year"
-      ? fetchYearData()
-      : period === "month"
-      ? fetchData("month")
-      : fetchData("week");
+    // period === "year"
+    //   ? fetchYearData()
+    period === "month" ? fetchData("month") : fetchData("week");
   }, [period]);
 
   return (
@@ -154,57 +179,34 @@ const Dashboard = () => {
             <div className="custom-container ">
               <ul className="list-group">
                 <li className="list-group-item  bg-main">Jobs</li>
-                <li
-                  className="list-group-item d-flex"
-                  style={{ justifyContent: "space-between" }}
-                >
-                  <div className="d-flex  justify-content-center">
-                    <img
-                      height="30"
-                      style={{ borderRadius: "50%" }}
-                      src="https://images.unsplash.com/photo-1577975882846-431adc8c2009?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"
-                      alt=""
-                    />
-                    &nbsp; &nbsp;
-                    <p className="m-0 p-0"> James Charles</p>
+
+                {jobList && jobList.length > 0 ? (
+                  jobList.map((job) => {
+                    return (
+                      <li
+                        key={job._id}
+                        className="list-group-item d-flex"
+                        style={{ justifyContent: "space-between" }}
+                      >
+                        {/* <div className="d-flex  justify-content-center"> */}
+                        <p className="m-0 p-0"> {job.package_title}</p>
+                        {/* </div> */}
+                      </li>
+                    );
+                  })
+                ) : (
+                  <div className="text-center p-4">
+                    <Spinner animation="border" />
                   </div>
-                  <p className="m-0 p-0">2:40 PM</p>
-                </li>
-                <li
-                  className="list-group-item d-flex"
-                  style={{ justifyContent: "space-between" }}
-                >
-                  <div className="d-flex  justify-content-center">
-                    <img
-                      height="30"
-                      style={{ borderRadius: "50%" }}
-                      src="https://images.unsplash.com/photo-1577975882846-431adc8c2009?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"
-                      alt=""
-                    />
-                    &nbsp; &nbsp;
-                    <p className="m-0 p-0"> James Charles</p>
-                  </div>
-                  <p className="m-0 p-0">2:40 PM</p>
-                </li>
-                <li
-                  className="list-group-item d-flex"
-                  style={{ justifyContent: "space-between" }}
-                >
-                  <div className="d-flex  justify-content-center">
-                    <img
-                      height="30"
-                      style={{ borderRadius: "50%" }}
-                      src="https://images.unsplash.com/photo-1577975882846-431adc8c2009?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"
-                      alt=""
-                    />
-                    &nbsp; &nbsp;
-                    <p className="m-0 p-0"> James Charles</p>
-                  </div>
-                  <p className="m-0 p-0">2:40 PM</p>
-                </li>
+                )}
 
                 <li className="list-group-item text-center ">
-                  <button className="bg-main btn-sm btn">View All</button>
+                  <button
+                    onClick={() => history.push("/tracking")}
+                    className="bg-main btn-sm btn"
+                  >
+                    View All
+                  </button>
                 </li>
               </ul>
             </div>
@@ -230,13 +232,28 @@ const Dashboard = () => {
           <Col md={4}>
             <div className="custom-container ">
               <ul className="list-group">
-                <li className="list-group-item  bg-main">Users</li>
-                <li className="list-group-item">And a fifth one</li>
-                <li className="list-group-item">And a fifth one</li>
-                <li className="list-group-item">And a fifth one</li>
-                <li className="list-group-item">And a fifth one</li>
-                <li className="list-group-item">And a fifth one</li>
-                <li className="list-group-item">And a fifth one</li>
+                <li className="list-group-item  bg-main">Drivers</li>
+                {driverList && driverList.length > 0 ? (
+                  driverList.map((driver) => {
+                    return (
+                      <li key={driver._id} className="list-group-item">
+                        {driver.name}
+                      </li>
+                    );
+                  })
+                ) : (
+                  <div className="text-center p-4">
+                    <Spinner animation="border" />
+                  </div>
+                )}
+                <li className="list-group-item text-center ">
+                  <button
+                    onClick={() => history.push("/userAccount")}
+                    className="bg-main btn-sm btn"
+                  >
+                    View All
+                  </button>
+                </li>
               </ul>
             </div>
           </Col>

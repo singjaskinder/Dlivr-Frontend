@@ -2,9 +2,6 @@ import React, { useEffect } from "react";
 import { ResponsiveLine } from "@nivo/line";
 
 const DashboardBarGraph = ({ height, stats }) => {
-  useEffect(() => {
-    console.log(stats);
-  }, []);
   return (
     <div style={{ height: height }}>
       <ResponsiveLine
@@ -19,7 +16,7 @@ const DashboardBarGraph = ({ height, stats }) => {
           reverse: false,
         }}
         yFormat=" >-.2f"
-        curve="basis"
+        curve="natural"
         axisTop={null}
         axisRight={null}
         axisBottom={{
@@ -28,7 +25,7 @@ const DashboardBarGraph = ({ height, stats }) => {
           tickPadding: 6,
           // tickRotation: -42,
           legend: "Dates",
-          legendOffset: 30,
+          legendOffset: 40,
           legendPosition: "middle",
         }}
         axisLeft={{
@@ -36,12 +33,12 @@ const DashboardBarGraph = ({ height, stats }) => {
           tickSize: 10,
           tickPadding: 5,
           tickRotation: 0,
-          tickValues: 5,
+          // tickValues: 5,
           legend: "Jobs",
-          legendOffset: -40,
+          legendOffset: -45,
           legendPosition: "middle",
         }}
-        enableGridX={false}
+        enableGridX={true}
         enableGridY={false}
         // linearScale=[2,4,6,8,10]
         enablePoints={false}
