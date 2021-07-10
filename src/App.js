@@ -25,22 +25,29 @@ import DriverDetails from "./screens/DriverDetails";
 import UserDetails from "./screens/UserDetails";
 import AdminDetails from "./screens/AdminDetails";
 import Drivers from "./screens/Drivers";
+import Dashboard from "./screens/DashBoard";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const ProtectedRoute = (path, Component) => {
-  console.log(path, "req CAME");
+function ProtectedRoute({ path, component: Component, ...rest }) {
   return (
-    <>
-      {!localStorage.getItem("token") ? (
-        <Redirect to={{ pathname: "/login" }} />
-      ) : (
-        <Route path={path} component={Component} />
-      )}
-    </>
+    <Route
+      path={path}
+      {...rest}
+      render={(props) => {
+        if (!localStorage.getItem("token"))
+          return (
+            <Redirect
+              to={{
+                pathname: "/login",
+              }}
+            />
+          );
+        return <Component {...props} />;
+      }}
+    />
   );
-};
-
+}
 function App() {
   return (
     <div className="App">
@@ -52,139 +59,50 @@ function App() {
         <Sidebar />
         <div className="main_div">
           <Switch>
-            <Route
-              exact
-              path="/dashboard"
-              render={() => (
-                <ProtectedRoute path={"/dashboard"} component={DashBoard} />
-              )}
-            />
-            <Route
+            <ProtectedRoute path="/dashboard" component={Dashboard} />
+            <ProtectedRoute
               exact
               path="/adminAccount"
-              render={() => (
-                <ProtectedRoute
-                  path={"/adminAccount"}
-                  component={AdminDetails}
-                />
-              )}
+              component={AdminDetails}
             />
-            <Route
-              exact
+            <ProtectedRoute
+              exacts
               path="/adminAccount/create"
-              render={() => (
-                <ProtectedRoute
-                  path={"/adminAccount/create"}
-                  component={CreateAdmin}
-                />
-              )}
+              component={CreateAdmin}
             />
-            <Route
+            <ProtectedRoute
               exact
               path="/adminAccount/:Adminid"
-              render={() => (
-                <ProtectedRoute
-                  path={"/adminAccount/:Adminid"}
-                  component={AdminAccount}
-                />
-              )}
+              component={AdminAccount}
             />
-            <Route
-              exact
-              path="/userAccount"
-              render={() => (
-                <ProtectedRoute path={"/userAccount"} component={UserAccount} />
-              )}
-            />
-            <Route
+            <ProtectedRoute exact path="/userAccount" component={UserAccount} />
+            <ProtectedRoute
               exact
               path="/userAccount/:user/:id"
-              render={() => (
-                <ProtectedRoute
-                  path={"/userAccount/:user/:id"}
-                  component={UserDetails}
-                />
-              )}
+              component={UserDetails}
             />
-            <Route
-              exact
-              path="/tracking"
-              render={() => (
-                <ProtectedRoute path={"/tracking"} component={Tracking} />
-              )}
-            />
-            <Route
-              exact
-              path="/tracking/:job"
-              render={() => (
-                <ProtectedRoute path={"/tracking/:job"} component={Job} />
-              )}
-            />
-            <Route
-              exact
-              path="/vehicles"
-              render={() => (
-                <ProtectedRoute path={"/vehicles"} component={Vehicles} />
-              )}
-            />
-            <Route
+            <ProtectedRoute exact path="/tracking" component={Tracking} />
+            <ProtectedRoute exact path="/tracking/:job" component={Job} />
+            <ProtectedRoute exact path="/vehicles" component={Vehicles} />
+            <ProtectedRoute
               exact
               path="/vehicles/:id"
-              render={() => (
-                <ProtectedRoute
-                  path={"/vehicles/:id"}
-                  component={VehiclesData}
-                />
-              )}
+              component={VehiclesData}
             />
-            <Route
-              exact
-              path="/support"
-              render={() => (
-                <ProtectedRoute path={"/support"} component={SupportListing} />
-              )}
-            />
-            <Route
+            <ProtectedRoute exact path="/support" component={SupportListing} />
+            <ProtectedRoute
               exact
               path="/support/conversation"
-              render={() => (
-                <ProtectedRoute
-                  path={"/support/conversation"}
-                  component={SupportConversation}
-                />
-              )}
+              component={SupportConversation}
             />
-            <Route
-              exact
-              path="/offer"
-              render={() => (
-                <ProtectedRoute path={"/offer"} component={Offer} />
-              )}
-            />
-            <Route
+            <ProtectedRoute exact path="/offer" component={Offer} />
+            <ProtectedRoute
               exact
               path="/notifications"
-              render={() => (
-                <ProtectedRoute
-                  path={"/notifications"}
-                  component={Notification}
-                />
-              )}
+              component={Notification}
             />
-            <Route
-              exact
-              path="/driver"
-              render={() => (
-                <ProtectedRoute path={"/driver"} component={DriverDetails} />
-              )}
-            />
-            <Route
-              exact
-              path="/driver/:id"
-              render={() => (
-                <ProtectedRoute path={"/driver/:id"} component={Drivers} />
-              )}
-            />
+            <ProtectedRoute exact path="/driver" component={DriverDetails} />
+            <ProtectedRoute exact path="/driver/:id" component={Drivers} />
           </Switch>
         </div>
       </Router>
