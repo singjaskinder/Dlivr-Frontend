@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import "./Vehicles.css";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import ScreenHeading from "../components/ScreenHeading";
 import axios from "axios";
 import SkeletonVehicle from "../skeleton/SkeletonVehicle";
@@ -26,8 +26,8 @@ function Vehicles() {
       searchResults = searchByNumber
         ? vehicles.filter((item) => item.number.includes(searchValue))
         : vehicles.filter((item) =>
-            item.owner_id.name.toLowerCase().includes(searchValue.toLowerCase())
-          );
+          item.owner_id.name.toLowerCase().includes(searchValue.toLowerCase())
+        );
 
       console.log(searchResults);
       setResult(searchResults);
@@ -79,7 +79,14 @@ function Vehicles() {
         progress={progress}
         onLoaderFinished={() => setProgress(0)}
       />
-      <ScreenHeading heading="Vehicles" />
+      <div className="vehicleHeading">
+        <ScreenHeading heading="Vehicles" />
+        <Link to="/vehicles/categories">
+        <button className="addVehicleCategoryBtn">
+          Add vehicle Category
+        </button>
+        </Link>
+      </div>
       {vehicles.length === 0 && <SkeletonVehicle />}
       {vehicles.length !== 0 && (
         <>

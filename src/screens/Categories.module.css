@@ -1,0 +1,126 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+.addDiv{
+    width: 100%;
+    height: 100%;
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    background-color: #fff;
+}
+
+.addHeading{
+    color:#6f2da8;
+    font-size: 1.6rem;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+}
+.addDiv{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.input{
+    outline: none;
+    width: 49.5%;
+    padding: .3rem .5rem;
+    margin: 10px 0px;
+    border-radius: 5px;
+    border: 1px solid #6f2da8;
+}
+.input::-webkit-outer-spin-button,
+.input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.textarea{
+    width: 100%;
+    height: 5rem;
+    padding: .3rem .5rem;
+    margin: 10px 0px;
+    border-radius: 5px;
+    outline: none;
+    border: 1px solid #6f2da8;
+}
+
+.inputHeading{
+    font-family: 'Poppins', sans-serif;
+    color: #6f2da8;
+    font-size: 1.2rem;
+    font-weight: 400;
+}
+
+.selectImg{
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.addBtn{
+    margin-top: 10px;
+    border: none;
+    background-color:#6f2da8;
+    font-size: 1rem;
+    padding: .2rem .7rem;
+    color: #fff;
+    font-family: 'Poppins', sans-serif;
+    border-radius: 5px;
+}
+
+.vehicleCards{
+    margin: 3rem 0px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.card{
+    cursor: pointer;
+    text-decoration: none;
+    margin: 5px;
+    margin-bottom: 15px;
+    width: 20rem;
+    height: 20rem;
+    border-radius: 20px;
+    padding: 1rem;
+    overflow: hidden;
+    transition: .3s;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+.card:hover{
+    transform: scale(1.02);
+    transition: .3s;
+}
+
+.cardImg{
+    height: 50%;
+
+}
+
+.cardImg > img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+
+}
+
+.cardData{
+    margin-top: 20px;
+    align-items: center;
+    text-align: center;
+}
+.cardTitle{
+    font-size: 1.6rem;
+    color: #6f2da8;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    text-transform: capitalize;
+}
+
+.subTitle{
+    font-weight: 400;
+    font-size: 1.1rem;
+    color: #6f2da8;
+    font-family: 'Poppins', sans-serif;
+    text-transform: capitalize;
+}

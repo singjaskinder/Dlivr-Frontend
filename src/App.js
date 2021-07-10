@@ -21,6 +21,8 @@ import AdminDetails from "./screens/AdminDetails";
 import Drivers from "./screens/Drivers";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Categories from "./screens/Categories";
+import EditVehicleCategory from "./screens/EditVehicleCategory";
 
 function App() {
   return (
@@ -50,6 +52,8 @@ function App() {
             <Route exact path="/tracking" component={Tracking} />
             <Route exact path="/tracking/:job" component={Job} />
             <Route exact path="/vehicles" component={Vehicles} />
+            <Route exact path="/vehicles/categories" component={Categories} />
+            <Route exact path="/vehicles/categories/:id" component={EditVehicleCategory} />
             <Route exact path="/vehicles/:id" component={VehiclesData} />
             <Route exact path="/support" component={SupportListing} />
             <Route
