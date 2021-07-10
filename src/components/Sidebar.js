@@ -1,17 +1,19 @@
 import "./Sidebar.css";
 import Logo from "./Logo.png";
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import Yogi_Ji from "./Yogi_Ji.jpeg";
 import { useEffect } from "react";
 import { useState } from "react";
 
 function Sidebar() {
-  const [name, setName] = useState("");
-
-  useEffect(() => {
-    setName(JSON.parse(localStorage.getItem("name")));
-    console.log(JSON.parse(localStorage.getItem("name")));
-  }, []);
+  const [name, setName] = useState(JSON.parse(localStorage.getItem("name")));
+  const history = useHistory();
+  // useEffect(() => {
+  //   console.log("hii")
+  //   console.log(history);
+  //   setName(JSON.parse(localStorage.getItem("name")));
+  //   console.log(JSON.parse(localStorage.getItem("name")));
+  // },[]);
   return (
     <>
       <div className="sidebar_main_div">
@@ -29,6 +31,7 @@ function Sidebar() {
                 onClick={() => {
                   localStorage.removeItem("name");
                   localStorage.removeItem("token");
+                  history.push("/login");
                 }}
                 // className="logout
               >

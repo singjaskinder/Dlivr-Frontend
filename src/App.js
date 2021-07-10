@@ -9,7 +9,13 @@ import Job from "./screens/Order";
 import Vehicles from "./screens/Vehicles";
 import Offer from "./screens/Offer";
 import VehiclesData from "./screens/VehicleData";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  useLocation,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
 import Notification from "./screens/Notification";
 import CreateAdmin from "./screens/CreateAdmin";
 import SupportListing from "./screens/SupportListing";
@@ -19,11 +25,31 @@ import DriverDetails from "./screens/DriverDetails";
 import UserDetails from "./screens/UserDetails";
 import AdminDetails from "./screens/AdminDetails";
 import Drivers from "./screens/Drivers";
+import Dashboard from "./screens/DashBoard";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Categories from "./screens/Categories";
 import EditVehicleCategory from "./screens/EditVehicleCategory";
 
+function ProtectedRoute({ path, component: Component, ...rest }) {
+  return (
+    <Route
+      path={path}
+      {...rest}
+      render={(props) => {
+        if (!localStorage.getItem("token"))
+          return (
+            <Redirect
+              to={{
+                pathname: "/login",
+              }}
+            />
+          );
+        return <Component {...props} />;
+      }}
+    />
+  );
+}
 function App() {
   return (
     <div className="App">
@@ -35,36 +61,53 @@ function App() {
         <Sidebar />
         <div className="main_div">
           <Switch>
-            <Route exact path="/dashboard" component={DashBoard} />
-            <Route exact path="/adminAccount" component={AdminDetails} />
-            <Route exact path="/adminAccount/create" component={CreateAdmin} />
-            <Route
+            <ProtectedRoute path="/dashboard" component={Dashboard} />
+            <ProtectedRoute
+              exact
+              path="/adminAccount"
+              component={AdminDetails}
+            />
+            <ProtectedRoute
+              exacts
+              path="/adminAccount/create"
+              component={CreateAdmin}
+            />
+            <ProtectedRoute
               exact
               path="/adminAccount/:Adminid"
               component={AdminAccount}
             />
-            <Route exact path="/userAccount" component={UserAccount} />
-            <Route
+            <ProtectedRoute exact path="/userAccount" component={UserAccount} />
+            <ProtectedRoute
               exact
               path="/userAccount/:user/:id"
               component={UserDetails}
             />
-            <Route exact path="/tracking" component={Tracking} />
-            <Route exact path="/tracking/:job" component={Job} />
-            <Route exact path="/vehicles" component={Vehicles} />
-            <Route exact path="/vehicles/categories" component={Categories} />
-            <Route exact path="/vehicles/categories/:id" component={EditVehicleCategory} />
-            <Route exact path="/vehicles/:id" component={VehiclesData} />
-            <Route exact path="/support" component={SupportListing} />
-            <Route
+            <ProtectedRoute exact path="/tracking" component={Tracking} />
+            <ProtectedRoute exact path="/tracking/:job" component={Job} />
+            <ProtectedRoute exact path="/vehicles" component={Vehicles} />
+
+            <ProtectedRoute exact path="/vehicles/categories" component={Categories} />
+            <ProtectedRoute exact path="/vehicles/categories/:id" component={EditVehicleCategory} />
+            <ProtectedRoute
+              exact
+              path="/vehicles/:id"
+              component={VehiclesData}
+            />
+            <ProtectedRoute exact path="/support" component={SupportListing} />
+            <ProtectedRoute
               exact
               path="/support/conversation"
               component={SupportConversation}
             />
-            <Route exact path="/offer" component={Offer} />
-            <Route exact path="/notifications" component={Notification} />
-            <Route exact path="/driver" component={DriverDetails} />
-            <Route exact path="/driver/:id" component={Drivers} />
+            <ProtectedRoute exact path="/offer" component={Offer} />
+            <ProtectedRoute
+              exact
+              path="/notifications"
+              component={Notification}
+            />
+            <ProtectedRoute exact path="/driver" component={DriverDetails} />
+            <ProtectedRoute exact path="/driver/:id" component={Drivers} />
           </Switch>
         </div>
       </Router>
