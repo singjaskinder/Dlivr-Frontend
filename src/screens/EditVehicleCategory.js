@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 import style from "./EditVehicleCategory.module.css"
 import LoadingBar from "react-top-loading-bar";
 
-const URL = "http://dlivr.herokuapp.com"
+const URL = "https://dlivr.herokuapp.com"
 const ImgUrl = "https://storage.googleapis.com/dlivr-55a47.appspot.com/"
 
 const EditVehicleCategory = () => {

@@ -6,7 +6,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { Link, useHistory } from "react-router-dom";
 
-const URL = "http://dlivr.herokuapp.com"
+const URL = "https://dlivr.herokuapp.com"
 const ImgUrl = "https://storage.googleapis.com/dlivr-55a47.appspot.com/"
 const Categories = () => {
     const history = useHistory();
