@@ -10,9 +10,25 @@
   width:250px;
   box-shadow: 0 2px 5px rgb(38, 35, 35);
   text-align: center;
-  color:rgb(89, 93, 199);
+  color:#6f2da8;
   margin-right:40px;
+  position: relative;
   margin-top:30px;
+  justify-content: center;
+}
+
+.admin_icon{
+  font-size: 5rem;
+  color: #c4c4c4;
+}
+
+.delete_admin_icon{
+  position: absolute;
+  right: 1.2rem;
+  top: 1rem;
+  font-size: 1.5rem;
+  color:#6f2da8;
+  cursor: pointer;
 }
 .ad-img{
   margin-top:10px;

@@ -28,7 +28,20 @@
 
 .profilePic > img{
     width: 50%;
-    border-radius: 50%;
+    /* border-radius: 50%; */
+}
+
+.no_posted_yet_txt{
+    width: 100%;
+    height: 20vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    color: #6f2da8;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+
 }
 
 .divData{

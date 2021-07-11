@@ -26,16 +26,20 @@ function Sidebar() {
               src="https://hmgroup.com/wp-content/uploads/2020/10/cq5dam.web_.976.603.01-1.jpeg"
             />
             <div className="details">
-              <p className="name">{name}</p>
+              <p className="admin_name">{name}</p>
               <div
                 onClick={() => {
-                  localStorage.removeItem("name");
-                  localStorage.removeItem("token");
-                  history.push("/login");
+
+                  if (window.confirm(`Confirm Logout?`)) {
+                    localStorage.removeItem("name");
+                    localStorage.removeItem("token");
+                    history.push("/login");
+
+                  }
                 }}
-                // className="logout
+              className="logout_txt"
               >
-                <i className="fas fa-sign-out-alt ">logout</i>
+                Logout <i className="fas fa-sign-out-alt "></i>
               </div>
             </div>
           </div>

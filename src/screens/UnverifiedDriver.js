@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 import { useHistory } from "react-router-dom";
 
 const UnverifiedDriver = (params) => {
-    console.log("im in unverified")
+    // console.log("im in unverified")
     var history = useHistory();
     const [progress, setProgress] = useState(0)
     var { id } = params;
@@ -34,8 +34,10 @@ const UnverifiedDriver = (params) => {
     const [medicare, setMedicare] = useState("")
     const [residenceProof, setResidenceProof] = useState("")
     const [driivngHistory, setDrivingHistory] = useState("")
+    const [image, setImage] = useState(null);
 
     const URL = "https://dlivr.herokuapp.com";
+    const ImgUrl = "https://storage.googleapis.com/dlivr-55a47.appspot.com/"
 
     const getUnverifiedDriver = () => {
         axios({
@@ -50,7 +52,7 @@ const UnverifiedDriver = (params) => {
             .then(res => {
                 var baseRoot;
                 baseRoot = res.data.data[0].getdriver[0]
-                console.log(baseRoot);
+                console.log(res);
                 setUserName(baseRoot.name)
                 setUserPhone(baseRoot.phone)
                 setUserAddress(baseRoot.addresses)
@@ -73,6 +75,9 @@ const UnverifiedDriver = (params) => {
                 setMedicare(`https://storage.googleapis.com/dlivr-55a47.appspot.com/${baseRoot.secondary_document[0].medicare}`)
                 setResidenceProof(`https://storage.googleapis.com/dlivr-55a47.appspot.com/${baseRoot.secondary_document[0].residence_proof}`)
                 setDrivingHistory(`https://storage.googleapis.com/dlivr-55a47.appspot.com/${baseRoot.additional_document[0].driving_history}`)
+
+                
+                console.log(res.data.data[0].image)
 
             })
             .catch(err => {
@@ -119,7 +124,9 @@ const UnverifiedDriver = (params) => {
             <div className="userDataDiv">
                 <div className="userData">
                     <div className="profilePic">
-                        <img src="https://i.pinimg.com/originals/ae/ec/c2/aeecc22a67dac7987a80ac0724658493.jpg" alt="" />
+                        {/* <img src="https://i.pinimg.com/originals/ae/ec/c2/aeecc22a67dac7987a80ac0724658493.jpg" alt="" /> */}
+                        {image === null ?  <i className="fas fa-user admin_icon"></i> : <img src={`${ImgUrl}${image}`} alt="Can't load profile image" />}
+                   
                     </div>
                     <div className="divData">
                         <p className="userName">{userName}</p>

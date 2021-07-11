@@ -4,6 +4,17 @@
     align-items: center;
 }
 
+.spinner_center_css{
+    display: block !important;
+    text-align: center;
+    width: 100%;
+    min-height: 20vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 8vh 0;
+}
+
 .selectionDiv > p{
     background-color: #fff;
     color: #6f2da8;

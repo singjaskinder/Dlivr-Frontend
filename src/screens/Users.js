@@ -4,9 +4,10 @@ import "./Users.css"
 import axios from "axios";
 import LoadingBar from 'react-top-loading-bar'
 import { toast } from "react-toastify";
-import {Link} from "react-router-dom"
+import { Link } from "react-router-dom"
 
 const URL = "https://dlivr.herokuapp.com";
+const ImgUrl = "https://storage.googleapis.com/dlivr-55a47.appspot.com/"
 
 const Users = (params) => {
     const [progress, setProgress] = useState(0)
@@ -22,7 +23,7 @@ const Users = (params) => {
     const [userRating, setUserRating] = useState("4.5")
     const [userEmail, setUserEmail] = useState("")
     const [registrationDate, setRegistrationDate] = useState("")
-
+    const [profile_image, setProfile_image] = useState(null)
 
 
 
@@ -55,7 +56,7 @@ const Users = (params) => {
                 setUserRating("4.5")
                 var registrationDate = new Date(res.data.data[0].user.createdAt)
                 setRegistrationDate(`${registrationDate.getDate()}.${registrationDate.getMonth() + 1}.${registrationDate.getFullYear()}`)
-
+                setProfile_image(res.data.data[0].user.profile_image)
             })
             .catch(err => {
                 console.log(err)
@@ -143,7 +144,9 @@ const Users = (params) => {
             <div className="userDataDiv">
                 <div className="userData">
                     <div className="profilePic">
-                        <img src="https://i.pinimg.com/originals/ae/ec/c2/aeecc22a67dac7987a80ac0724658493.jpg" alt="" />
+                        {/* <img src="https://i.pinimg.com/originals/ae/ec/c2/aeecc22a67dac7987a80ac0724658493.jpg" alt="" /> */}
+
+                       {profile_image === null ?  <i className="fas fa-user admin_icon"></i> : <img src={`${ImgUrl}${profile_image}`} alt="Can't load profile image" />}
                     </div>
                     <div className="divData">
                         <p className="userName">{userName}</p>
@@ -206,7 +209,7 @@ const Users = (params) => {
                                 </div>
                             </Link>
                         )
-                    }): "No Jobs posted yet"}
+                    }) : <p className="no_posted_yet_txt">No Jobs Posted Yet</p>}
                 </div>}
             </div>
         </>

@@ -13,6 +13,7 @@ import ScreenHeading from "../components/ScreenHeading";
 
 
 const URL = "https://dlivr.herokuapp.com";
+const ImgUrl = "https://storage.googleapis.com/dlivr-55a47.appspot.com/"
 
 function Driver(params) {
 
@@ -142,6 +143,8 @@ function Driver(params) {
     const [residenceProof, setResidenceProof] = useState("")
     const [driivngHistory, setDrivingHistory] = useState("")
 
+    const [image, setImage] = useState(null);
+
     const setJobs = () => {
         setUserJobs(true);
         setUserServices(false)
@@ -163,7 +166,7 @@ function Driver(params) {
         })
             .then(res => {
                 // console.log(res)
-                console.log(res.data.data[0].addresses)
+                console.log(res.data.data[0])
                 setUserName(res.data.data[0].name)
                 setUserPhone(res.data.data[0].phone)
                 setUserAddress(res.data.data[0].addresses)
@@ -188,11 +191,12 @@ function Driver(params) {
                 setResidenceProof(`https://storage.googleapis.com/dlivr-55a47.appspot.com/${baseRoot.secondary_document[0].residence_proof}`)
                 setDrivingHistory(`https://storage.googleapis.com/dlivr-55a47.appspot.com/${baseRoot.additional_document[0].driving_history}`)
 
+                setImage(res.data.data[0].image)
 
             })
             .catch(err => {
                 console.log(err)
-                console.log(err.response.data.message)
+                // console.log(err.response.data.message)
             })
     }
 
@@ -426,7 +430,8 @@ function Driver(params) {
             <div className="userDataDiv">
                 <div className="userData">
                     <div className="profilePic">
-                        <img src="https://i.pinimg.com/originals/ae/ec/c2/aeecc22a67dac7987a80ac0724658493.jpg" alt="" />
+                        {/* <img src="https://i.pinimg.com/originals/ae/ec/c2/aeecc22a67dac7987a80ac0724658493.jpg" alt="" /> */}
+                       {image === null ?  <i className="fas fa-user admin_icon"></i> : <img src={`${ImgUrl}${image}`} alt="Can't load profile image" />}
                     </div>
                     <div className="divData">
                         <p className="userName">{userName}</p>
@@ -530,7 +535,7 @@ function Driver(params) {
                                 </div>
                             </Link>
                         )
-                    }) : "No Jobs posted yet"}
+                    }) : <p className="no_posted_yet_txt">No Jobs Posted Yet</p>}
                 </div>}
             </div>
         </>
