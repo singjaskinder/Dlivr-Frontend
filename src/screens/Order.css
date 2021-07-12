@@ -129,6 +129,7 @@
 .done::after {
   background: #4e1983;
 }
+
 .active::after {
   background: #4e1983;
 }
