@@ -16,7 +16,7 @@ const DashboardBarGraph = ({ height, stats }) => {
           reverse: false,
         }}
         yFormat=" >-.2f"
-        curve="natural"
+        curve="cardinal"
         axisTop={null}
         axisRight={null}
         axisBottom={{
@@ -33,7 +33,7 @@ const DashboardBarGraph = ({ height, stats }) => {
           tickSize: 10,
           tickPadding: 5,
           tickRotation: 0,
-          // tickValues: 5,
+          tickValues: 5,
           legend: "Jobs",
           legendOffset: -45,
           legendPosition: "middle",

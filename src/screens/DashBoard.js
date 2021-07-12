@@ -29,6 +29,7 @@ const Dashboard = () => {
   const [jobCount, setJobCount] = useState(0);
   const [driverList, setDriverList] = useState([]);
   const [jobList, setJobList] = useState([]);
+  const [totalJobsCount, setTotalJobsCount] = useState(0);
   useEffect(() => {
     const calculateUsersCount = async () => {
       const userCount = await axios.get(`${BASE_URL}/admin/users-count`, {
@@ -57,7 +58,7 @@ const Dashboard = () => {
 
     const setListData = async () => {
       const jobsArray = await axios.get(
-        `${BASE_URL}/admin/jobs?recordsPerPage=3`,
+        `${BASE_URL}/admin/jobs?recordsPerPage=4`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -69,7 +70,7 @@ const Dashboard = () => {
 
       setJobList(jobsArray.data.data[0].foundJobs);
       const driverArray = await axios.get(
-        `${BASE_URL}/admin/drivers?recordsPerPage=3`,
+        `${BASE_URL}/admin/drivers?recordsPerPage=4`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -98,17 +99,26 @@ const Dashboard = () => {
           Authorization: "Bearer " + JSON.parse(localStorage.getItem("token")),
         },
       });
+      var totalJobs = 0;
       let jobStats = res.data.data[0].foundStats.map((job) => {
         job.x = job.date.substring(5, 10);
         job.y = job.total_jobs;
+        totalJobs += job.total_jobs;
         return job;
       });
       jobStats.reverse();
       customData.data = jobStats;
       setData([customData]);
+      setTotalJobsCount(totalJobs);
     };
     const fetchYearData = async () => {
-      const res = await axios.get(`${BASE_URL}/admin/jobs/week`);
+      const res = await axios.get(`${BASE_URL}/admin/jobs/year`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + JSON.parse(localStorage.getItem("token")),
+        },
+      });
+
       var months = [
         "January",
         "February",
@@ -123,22 +133,27 @@ const Dashboard = () => {
         "November",
         "December",
       ];
+      var totalJobs = 0;
 
       let jobStats = res.data.data[0].foundStats.map((job) => {
         // job.x = job.date.substring(0, 10);
         job.x = months[job._id.month - 1];
         job.y = job.total_jobs;
+        totalJobs += job.total_jobs;
         return job;
       });
       jobStats.reverse();
       customData.data = jobStats;
       setData([customData]);
+      setTotalJobsCount(totalJobs);
     };
-    // fetchData("lastWeekJobs");
-    // fetchData("lastMonthJobs");
-    // period === "year"
-    //   ? fetchYearData()
-    period === "month" ? fetchData("month") : fetchData("week");
+    fetchData("lastWeekJobs");
+    fetchData("lastMonthJobs");
+    period === "year"
+      ? fetchYearData()
+      : period === "month"
+      ? fetchData("month")
+      : fetchData("week");
   }, [period]);
 
   return (
@@ -170,7 +185,7 @@ const Dashboard = () => {
                   <option value="month">Month</option>
                   <option value="year">Year</option>
                 </select>
-                <h5>25000</h5>
+                <h5>{totalJobsCount} Jobs</h5>
               </div>
               {data && <DashboardBarGraph stats={data} height="13rem" />}{" "}
             </div>
