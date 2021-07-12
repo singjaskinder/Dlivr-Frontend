@@ -10,10 +10,11 @@
 
 .impData{
     display: flex;
+    justify-content: space-evenly;
 }
 
 .vehicleImage{
-    width: 50%;
+    width: 40%;
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.3);

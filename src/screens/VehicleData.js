@@ -6,6 +6,7 @@ import "./VehicleData.css"
 import axios from "axios";
 import ScreenHeading from "../components/ScreenHeading";
 const URL="https://dlivr.herokuapp.com";
+const ImageUrl = `https://storage.googleapis.com/dlivr-55a47.appspot.com/`;
 
 function VehicleData() {
     const [vehicleType, setVehicleType] = useState("...");
@@ -14,9 +15,11 @@ function VehicleData() {
     const [vehicleLoadCapacity, setVehicleLoadCapacity] = useState("...");
     const [vehicleDateOfRegistreation, setvehicleDateOfRegistreation] = useState("...");
     const [vehicleColour, setVehicleColour] = useState("...");
-    const [vehicleIC, setVehicleIC] = useState("/dashboard");
-    const [vehicleRC, setVehicleRC] = useState("/dashboard");
-    const [vehicleIscC, setVehicleIscC] = useState("/dashboard");
+    const [vehicleIC, setVehicleIC] = useState("");
+    const [vehicleRC, setVehicleRC] = useState("");
+    const [vehicleIscC, setVehicleIscC] = useState("");
+    const [vehicle_image, setVehicleImage] = useState("");
+    const [vehicleName, setVehicleName] = useState("");
     const { id } = useParams();
     useEffect(() => {
         
@@ -32,11 +35,14 @@ function VehicleData() {
                     setVehicleDriver(vehicle.owner_id.name)
                     setVehicleNo(vehicle.number)
                     setVehicleLoadCapacity(vehicle.load_capacity)
-                    setvehicleDateOfRegistreation("00-00-0000");
+                    var registrationDate = new Date(vehicle.createdAt)
+                    setvehicleDateOfRegistreation(`${registrationDate.getDate()}-${registrationDate.getMonth() + 1}-${registrationDate.getFullYear()}`)
                     setVehicleColour(vehicle.color)
                     setVehicleIC(`https://storage.googleapis.com/dlivr-55a47.appspot.com/${vehicle.insurance_certificate}`)
                     setVehicleRC(`https://storage.googleapis.com/dlivr-55a47.appspot.com/${vehicle.registration_certificate}`);
                     setVehicleIscC(`https://storage.googleapis.com/dlivr-55a47.appspot.com/${vehicle.inspection_certificate}`)
+                    setVehicleImage(vehicle.vehicle_image)
+                    setVehicleName(vehicle.name)
                 })
                 .catch(err => console.log(err))
                 
@@ -51,9 +57,14 @@ function VehicleData() {
             <div className="mainDataDiv">
                 <div className="impData">
                     <div className="vehicleImage">
-                        <img src="https://storage.googleapis.com/dlivr-55a47.appspot.com/Chat/imgfile__1619084682730.webp" alt="..." />
+                        {/* <img src="https://storage.googleapis.com/dlivr-55a47.appspot.com/Chat/imgfile__1619084682730.webp" alt="..." /> */}
+                        <img src={`${ImageUrl}${vehicle_image}`} alt="Couldn't load vehicle image" />
                     </div>
                     <div className="impData_data">
+                        <div className="impData_row">
+                            <p className="impData_heading">Vehicle Name</p>
+                            <p className="impData_value">{vehicleName}</p>
+                        </div>
                         <div className="impData_row">
                             <p className="impData_heading">Type</p>
                             <p className="impData_value">{vehicleType}</p>
