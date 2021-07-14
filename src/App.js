@@ -87,8 +87,16 @@ function App() {
             <ProtectedRoute exact path="/tracking/:job" component={Job} />
             <ProtectedRoute exact path="/vehicles" component={Vehicles} />
 
-            <ProtectedRoute exact path="/vehicles/categories" component={Categories} />
-            <ProtectedRoute exact path="/vehicles/categories/:id" component={EditVehicleCategory} />
+            <ProtectedRoute
+              exact
+              path="/vehicles/categories"
+              component={Categories}
+            />
+            <ProtectedRoute
+              exact
+              path="/vehicles/categories/:id"
+              component={EditVehicleCategory}
+            />
             <ProtectedRoute
               exact
               path="/vehicles/:id"
@@ -108,6 +116,7 @@ function App() {
             />
             <ProtectedRoute exact path="/driver" component={DriverDetails} />
             <ProtectedRoute exact path="/driver/:id" component={Drivers} />
+            <ProtectedRoute path="/" component={Dashboard} />
           </Switch>
         </div>
       </Router>
