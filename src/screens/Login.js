@@ -10,14 +10,17 @@ function Login({ Login, error }) {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false)
   const submitHandler = async (e) => {
     e.preventDefault();
+    setIsLoading(true)
     axios
       .post(`${BASE_URL}/admin/login`, {
         email,
         password,
       })
       .then((response) => {
+        setIsLoading(false)
         toast.success(response.data.message);
         localStorage.setItem(
           "name",
@@ -27,12 +30,14 @@ function Login({ Login, error }) {
           "token",
           JSON.stringify(response.data.data[0].token)
         );
-        history.push("/dashboard");
+        history.push("/dashboard")
       })
       .catch((e) => {
+        setIsLoading(false)
         console.log(e);
-        toast.error(e.response.data.message, {});
-        console.log(e);
+        if (e.response) {
+          toast.error(e.response.data.message, {});
+        }
       });
   };
 
@@ -103,16 +108,25 @@ function Login({ Login, error }) {
                   <button className="plane-btn">Forgot password?</button>
                 </div>
 
-                <div className="new-pass-con new-password-btn-con ">
-                  <button
-                    type="submit"
-                    value="submit"
-                    onClick={submitHandler}
-                    className="login-btn"
-                  >
-                    LOGIN
-                  </button>
+                
+                  {isLoading
+                    ?
+
+                      <div className="spinner-border text-dark " role="status">
+                        <span className="visually-hidden">Loading...</span>
+                      </div>
+                    :
+                    <div className="new-pass-con new-password-btn-con ">
+                    <button
+                      type="submit"
+                      value="submit"
+                      onClick={submitHandler}
+                      className="login-btn"
+                    >
+                      LOGIN
+                    </button>
                 </div>
+                  }
               </form>
             </div>
           </div>

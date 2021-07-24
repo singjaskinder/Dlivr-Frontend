@@ -67,12 +67,8 @@ const CreateAdmin = () => {
       <h3>New Admin</h3>
       <div className="custom-container">
         <div className="create-admin-container">
-          <img
-            height="160"
-            style={{ borderRadius: "50%" }}
-            src="https://images.unsplash.com/photo-1577975882846-431adc8c2009?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"
-            alt=""
-          />
+          
+          <i className="fas fa-user add_admin_icon"></i>
 
           <form action="">
             <div className="row">

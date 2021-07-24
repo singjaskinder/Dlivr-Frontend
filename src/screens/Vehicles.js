@@ -3,7 +3,7 @@ import "./Vehicles.css";
 import { Link, NavLink } from "react-router-dom";
 import ScreenHeading from "../components/ScreenHeading";
 import axios from "axios";
-import SkeletonVehicle from "../skeleton/SkeletonVehicle";
+// import SkeletonVehicle from "../skeleton/SkeletonVehicle";
 import LoadingBar from "react-top-loading-bar";
 import { BASE_URL } from "../utils/Links";
 
@@ -13,6 +13,7 @@ function Vehicles() {
   const [searchValue, setSearchValue] = useState("");
   const [result, setResult] = useState([]);
   const [searchByNumber, setSearchByNumber] = useState(false);
+  const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
     loadVehicles();
@@ -39,6 +40,7 @@ function Vehicles() {
 
   const loadVehicles = () => {
     try {
+      setIsLoading(true)
       axios
         .get(`${BASE_URL}/admin/vehicles`, {
           headers: {
@@ -48,11 +50,13 @@ function Vehicles() {
           },
         })
         .then((res) => {
+          setIsLoading(false)
           setVehicles(res.data.data[0].foundVehicles);
           setResult(res.data.data[0].foundVehicles);
         });
     } catch (error) {
       console.log(error);
+      setIsLoading(false)
     }
   };
 
@@ -82,12 +86,19 @@ function Vehicles() {
       <div className="vehicleHeading">
         <ScreenHeading heading="Vehicles" />
         <Link to="/vehicles/categories">
-        <button className="addVehicleCategoryBtn">
-          Add vehicle Category
-        </button>
+          <button className="addVehicleCategoryBtn">
+            Add vehicle Category
+          </button>
         </Link>
       </div>
-      {vehicles.length === 0 && <SkeletonVehicle />}
+      {vehicles.length === 0 && isLoading
+        ?
+        <div className="spinner-wrapper">
+          <div className="spinner-border text-dark" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </div>
+        </div>
+        : <p className="noVehicleFound">No Data Found!</p>}
       {vehicles.length !== 0 && (
         <>
           <div className="vehicleCount">

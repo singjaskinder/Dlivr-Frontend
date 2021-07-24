@@ -58,18 +58,31 @@ function AdminDetails() {
                             admins.map((item, index) => {
                                 return (
                                     <>
+                                        {item.name === JSON.parse(localStorage.getItem("name")) 
+                                        ? 
                                         <AdminCard
-                                            key={index}
-                                            admin_id={item._id}
-                                            // img="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSLs-8jtqUvUSJnufK7jXePExzSUPkDPz7spA&usqp=CAU"
-                                            name={item.name}
-                                            position="manger"
-                                            email={item.email}
-                                        />
-
+                                        key={index}
+                                        admin_id={item._id}
+                                        // img="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSLs-8jtqUvUSJnufK7jXePExzSUPkDPz7spA&usqp=CAU"
+                                        name={item.name}
+                                        position="manger"
+                                        email={item.email}
+                                        canDelete={false}
+                                    />
+                                     :
+                                            <AdminCard
+                                                key={index}
+                                                admin_id={item._id}
+                                                // img="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSLs-8jtqUvUSJnufK7jXePExzSUPkDPz7spA&usqp=CAU"
+                                                name={item.name}
+                                                position="manger"
+                                                email={item.email}
+                                                canDelete={true}
+                                            />
+                                        }
                                     </>
                                 );
-                            }) : 
+                            }) :
                             <div className="spinner_center_css">
                                 <div className="spinner-border text-dark " role="status">
                                     <span className="visually-hidden">Loading...</span>

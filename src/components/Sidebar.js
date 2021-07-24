@@ -6,14 +6,20 @@ import { useEffect } from "react";
 import { useState } from "react";
 
 function Sidebar() {
-  const [name, setName] = useState(JSON.parse(localStorage.getItem("name")));
+  const [name, setName] = useState("");
   const history = useHistory();
-  // useEffect(() => {
-  //   console.log("hii")
-  //   console.log(history);
-  //   setName(JSON.parse(localStorage.getItem("name")));
-  //   console.log(JSON.parse(localStorage.getItem("name")));
-  // },[]);
+  useEffect(() => {
+    // setName("")
+    // if(JSON.parse(localStorage.getItem("name")) === null || name===""){
+      setName("Welcome Admin")
+    //   setInterval(()=>{
+    //     setName(JSON.parse(localStorage.getItem("name")))
+    //   },3000)
+    // }
+    // else{
+    //   setName(JSON.parse(localStorage.getItem("name")))
+    // }
+  });
   return (
     <>
       <div className="sidebar_main_div">
@@ -22,8 +28,7 @@ function Sidebar() {
             {/* <img src={Logo} alt="..."/> */}
             <img
               alt="adminImage"
-              className=""
-              src="https://hmgroup.com/wp-content/uploads/2020/10/cq5dam.web_.976.603.01-1.jpeg"
+              src="/logo.jpeg"
             />
             <div className="details">
               <p className="admin_name">{name}</p>

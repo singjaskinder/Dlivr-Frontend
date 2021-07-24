@@ -10,7 +10,7 @@ const URL = "https://dlivr.herokuapp.com";
 function UserAccount() {
 
     const history = useHistory();
-    const [isLoaded, setIsLoaded] = useState(false)
+    const [isLoading, setIsLoading] = useState(false)
 
     const [progress, setProgress] = useState(0)
     const [data, setData] = useState([]);
@@ -72,6 +72,7 @@ function UserAccount() {
 
     const getUsers = async () => {
         setProgress(70)
+        setIsLoading(true)
         axios({
             method: "GET",
             url: URL + "/admin/users",
@@ -84,18 +85,20 @@ function UserAccount() {
             }
         })
             .then(res => {
+                setIsLoading(false)
                 setProgress(100)
-                setIsLoaded(true)
                 input != "" ? (getFilteredUser()) : setData(res.data.data[0].foundUsers);
                 setResult(res.data.data[0].foundUsers)
             })
             .catch(err => {
+                setIsLoading(false)
                 console.log(err)
             })
     }
 
     const getDrivers = async () => {
         setProgress(70)
+        setIsLoading(true)
         axios({
             method: "GET",
             url: URL + "/admin/drivers",
@@ -109,16 +112,19 @@ function UserAccount() {
         })
             .then(res => {
                 setProgress(100)
+                setIsLoading(false)
                 input != "" ? getFilteredDriver() : setData(res.data.data[0].foundDrivers);
                 setResult(res.data.data[0].foundDrivers)
             })
             .catch(err => {
                 console.log(err)
+                setIsLoading(false)
             })
     }
 
     const getUnverifiedDrivers = async () => {
         setProgress(70)
+        setIsLoading(true)
         axios({
             method: "GET",
             url: URL + "/admin/unverified-drivers",
@@ -133,13 +139,16 @@ function UserAccount() {
             .then(res => {
                 setData(res.data.data[0].foundDrivers);
                 setProgress(100)
+                setIsLoading(false)
             })
             .catch(err => {
                 console.log(err)
+                setIsLoading(false)
             })
     }
 
     useEffect(() => {
+        setData([])
         if (userComponent) {
             getUsers()
         }
@@ -184,6 +193,7 @@ function UserAccount() {
                     <li>Phone Number</li>
                     <li>Registration Date</li>
                 </div>
+                {console.log(isLoading)}
                 {data != "" ?
                     data.map((item, index) => {
                         var createdAt = item.createdAt;
@@ -217,14 +227,15 @@ function UserAccount() {
                             </NavLink>
                         )
                     }) :
-                    data === "" && isLoaded ?
-                        <div><ResultNotFound /></div> :
-                        <div className="spinner_center_css">
-                            <div className="spinner-border text-dark " role="status">
-                                <span className="visually-hidden">Loading...</span>
+                    !isLoading ? <div><ResultNotFound /></div>
+                        :
+                        <div class="d-flex m-5 justify-content-center">
+                            <div class="spinner-border" role="status">
+                                <span class="visually-hidden">Loading...</span>
                             </div>
                         </div>
                 }
+
 
             </div>
         </>

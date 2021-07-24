@@ -34,7 +34,8 @@ function AdminCard(props) {
     return (
         <div className="admin-card-con">
             <div className="admin-card">
-                <i onClick={() => deleteAdmin()} className="delete_admin_icon fas fa-times"></i>
+                {props.canDelete ? <i onClick={() => deleteAdmin()} className="delete_admin_icon fas fa-times"></i> : ""}
+                
                 <div className="ad-img">
                     <i className="fas fa-user admin_icon"></i>
                 </div>
